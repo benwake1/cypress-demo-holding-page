@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cypress Dashboard — Self-Hosted Test Management</title>
+  <meta name="description" content="A self-hosted Cypress test dashboard. Trigger test suites, stream logs in real time, and deliver branded reports to clients — all from your own server. No subscriptions. No vendor lock-in." />
+  <meta property="og:title" content="Cypress Dashboard — Self-Hosted Test Management" />
+  <meta property="og:description" content="Run tests, stream logs in real time, and deliver branded reports to clients — all from your own server." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800;0,14..32,900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body class="bg-dark text-white font-sans antialiased" x-data="{ mobileOpen: false }">
+
+  <!-- ═══════════════════════════════════════════
+       NAV
+  ═══════════════════════════════════════════ -->
+  <nav class="fixed top-0 left-0 right-0 z-50 border-b border-dark-border/60 bg-dark/75 backdrop-blur-md">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="h-16 flex items-center justify-between">
+
+        <!-- Logo -->
+        <a href="#" class="flex items-center gap-2.5 group">
+          <div class="relative">
+            <svg class="w-8 h-8" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="32" height="32" rx="8" fill="#04C38E" fill-opacity="0.12"/>
+              <rect x="0.75" y="0.75" width="30.5" height="30.5" rx="7.25" stroke="#04C38E" stroke-opacity="0.5" stroke-width="1.5"/>
+              <path d="M11 10L22 16L11 22V10Z" fill="#04C38E"/>
+            </svg>
+          </div>
+          <span class="font-semibold text-sm text-white/90 group-hover:text-white transition-colors tracking-tight">
+            Cypress Dashboard
+          </span>
+        </a>
+
+        <!-- Desktop Links -->
+        <div class="hidden md:flex items-center gap-7 text-sm text-muted">
+          <a href="#features" class="hover:text-white transition-colors duration-200">Features</a>
+          <a href="#how-it-works" class="hover:text-white transition-colors duration-200">How It Works</a>
+          <a href="#tech-stack" class="hover:text-white transition-colors duration-200">Tech Stack</a>
+        </div>
+
+        <!-- Desktop CTA -->
+        <div class="hidden md:flex items-center gap-3">
+          <a
+            href="https://github.com/benwake1/cypress-gui"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-secondary text-xs"
+          >
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+            View on GitHub
+            <svg class="w-3 h-3 opacity-60" viewBox="0 0 12 12" fill="none"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4.5M9.5 2.5V7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+
+        <!-- Mobile Hamburger -->
+        <button
+          class="md:hidden p-2 text-muted hover:text-white transition-colors"
+          @click="mobileOpen = !mobileOpen"
+          aria-label="Toggle menu"
+        >
+          <svg x-show="!mobileOpen" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 5h14a1 1 0 010 2H3a1 1 0 110-2zm0 4h14a1 1 0 010 2H3a1 1 0 110-2zm0 4h14a1 1 0 010 2H3a1 1 0 110-2z" clip-rule="evenodd"/></svg>
+          <svg x-show="mobileOpen" class="w-5 h-5" style="display:none;" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+        </button>
+
+      </div>
+
+      <!-- Mobile Menu -->
+      <div x-show="mobileOpen" x-transition class="md:hidden border-t border-dark-border py-4 flex flex-col gap-1" style="display:none;">
+        <a href="#features" class="px-2 py-2 text-sm text-muted hover:text-white transition-colors" @click="mobileOpen = false">Features</a>
+        <a href="#how-it-works" class="px-2 py-2 text-sm text-muted hover:text-white transition-colors" @click="mobileOpen = false">How It Works</a>
+        <a href="#tech-stack" class="px-2 py-2 text-sm text-muted hover:text-white transition-colors" @click="mobileOpen = false">Tech Stack</a>
+        <a href="https://github.com/benwake1/cypress-gui" target="_blank" rel="noopener noreferrer" class="mt-2 btn-secondary justify-center text-xs">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+          View on GitHub
+        </a>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- ═══════════════════════════════════════════
+       HERO
+  ═══════════════════════════════════════════ -->
+  <section class="relative pt-32 pb-24 md:pt-40 md:pb-32 overflow-hidden">
+
+    <!-- Background layers -->
+    <div class="absolute inset-0 bg-dot-grid bg-dot-grid [mask-image:radial-gradient(ellipse_80%_60%_at_50%_0%,black_40%,transparent_100%)] opacity-100"></div>
+    <div class="absolute inset-0 bg-hero-glow"></div>
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-px h-40 bg-gradient-to-b from-cyber-green/40 to-transparent"></div>
+
+    <div class="relative max-w-6xl mx-auto px-6">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+
+        <!-- Left: Copy -->
+        <div class="flex flex-col gap-6">
+          <div>
+            <span class="section-label">
+              <span class="inline-block w-1.5 h-1.5 rounded-full bg-cyber-green"></span>
+              Open Source &middot; Self-Hosted &middot; Free
+            </span>
+          </div>
+
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight leading-[1.08]">
+            The Cypress Dashboard
+            <span class="text-cyber-green">You Actually Own</span>
+          </h1>
+
+          <p class="text-muted text-lg leading-relaxed max-w-lg">
+            Trigger test suites from a web UI, watch logs stream in real time, and deliver
+            beautiful branded reports to clients — all from your own server.
+            No subscriptions. No seats. No vendor lock-in.
+          </p>
+
+          <div class="flex flex-wrap items-center gap-3 pt-2">
+            <a
+              href="https://github.com/benwake1/cypress-gui"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-primary"
+            >
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+              View on GitHub
+            </a>
+            <a href="#features" class="btn-secondary">
+              Explore Features
+              <svg class="w-4 h-4" viewBox="0 0 16 16" fill="none"><path d="M8 3L8 13M8 13L3 8M8 13L13 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+
+          <!-- Mini stats -->
+          <div class="flex flex-wrap gap-6 pt-4 border-t border-dark-border">
+            <div>
+              <div class="text-2xl font-bold text-white">$0</div>
+              <div class="text-xs text-muted mt-0.5">Per month, forever</div>
+            </div>
+            <div class="w-px bg-dark-border self-stretch"></div>
+            <div>
+              <div class="text-2xl font-bold text-white">100%</div>
+              <div class="text-xs text-muted mt-0.5">Data ownership</div>
+            </div>
+            <div class="w-px bg-dark-border self-stretch"></div>
+            <div>
+              <div class="text-2xl font-bold text-white">∞</div>
+              <div class="text-xs text-muted mt-0.5">Projects &amp; clients</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Terminal mockup -->
+        <div class="relative">
+          <!-- Glow behind terminal -->
+          <div class="absolute -inset-4 bg-cyber-green/5 rounded-2xl blur-2xl"></div>
+
+          <div class="relative bg-dark-card border border-dark-border rounded-xl overflow-hidden shadow-2xl">
+            <!-- Terminal chrome -->
+            <div class="flex items-center gap-2 px-4 py-3 border-b border-dark-border bg-dark-raised">
+              <span class="w-3 h-3 rounded-full bg-red-500/70"></span>
+              <span class="w-3 h-3 rounded-full bg-yellow-500/70"></span>
+              <span class="w-3 h-3 rounded-full bg-green-500/70"></span>
+              <span class="ml-3 text-xs text-muted font-mono">cypress-dashboard — test run #147</span>
+            </div>
+
+            <!-- Terminal body -->
+            <div class="p-5 font-mono text-xs leading-6 text-slate-300 overflow-hidden">
+              <div class="text-muted">$ Dispatching test run → <span class="text-cyber-green">auth.cy.js</span></div>
+              <div class="mt-2 text-muted">&nbsp;&nbsp;Suite: <span class="text-white">Authentication</span> &nbsp;Branch: <span class="text-cyber-green">main</span></div>
+              <div class="mt-3 text-slate-400">  Running:&nbsp; auth.cy.js &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (1 of 3)</div>
+              <div class="mt-3 text-white">&nbsp;&nbsp;Authentication</div>
+              <div class="flex items-baseline gap-2">
+                <span class="text-cyber-green">    ✓</span>
+                <span class="text-slate-300">allows valid users to log in</span>
+                <span class="text-muted">(423ms)</span>
+              </div>
+              <div class="flex items-baseline gap-2">
+                <span class="text-cyber-green">    ✓</span>
+                <span class="text-slate-300">rejects invalid credentials</span>
+                <span class="text-muted">(198ms)</span>
+              </div>
+              <div class="flex items-baseline gap-2">
+                <span class="text-cyber-green">    ✓</span>
+                <span class="text-slate-300">persists session across reload</span>
+                <span class="text-muted">(891ms)</span>
+              </div>
+              <div class="flex items-baseline gap-2">
+                <span class="text-cyber-green">    ✓</span>
+                <span class="text-slate-300">redirects unauthenticated users</span>
+                <span class="text-muted">(312ms)</span>
+              </div>
+              <div class="mt-3 text-slate-400">&nbsp;&nbsp;4 passing <span class="text-muted">(1.8s)</span></div>
+              <div class="mt-4 border-t border-dark-border pt-4">
+                <div class="text-muted">  Report generated</div>
+                <div class="flex items-center gap-2 mt-1">
+                  <span class="text-cyber-green">  ✓</span>
+                  <span class="text-slate-300">Signed URL ready</span>
+                  <span class="text-muted">· expires in 30 days</span>
+                </div>
+                <div class="flex items-center gap-2 mt-1">
+                  <span class="text-cyber-green">  ✓</span>
+                  <span class="text-slate-300">Client report delivered</span>
+                  <span class="text-muted">· Acme Corp branding applied</span>
+                </div>
+              </div>
+              <div class="mt-4 flex items-center gap-1">
+                <span class="text-muted">$</span>
+                <span class="inline-block w-2 h-4 bg-cyber-green animate-blink ml-1"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       PROBLEM STRIP
+  ═══════════════════════════════════════════ -->
+  <section class="border-y border-dark-border bg-dark-card/50">
+    <div class="max-w-6xl mx-auto px-6 py-16">
+      <div class="text-center mb-12">
+        <p class="text-muted text-base">
+          Cypress Cloud charges per seat, per run, and per team — it adds up fast for agencies.
+        </p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6">
+
+        <div class="flex gap-4 p-5 rounded-xl border border-dark-border bg-dark">
+          <div class="flex-shrink-0 w-9 h-9 rounded-lg bg-red-500/10 border border-red-500/20 flex items-center justify-center">
+            <svg class="w-4 h-4 text-red-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/></svg>
+          </div>
+          <div>
+            <h3 class="font-semibold text-sm text-white mb-1">Cloud services are expensive</h3>
+            <p class="text-muted text-sm leading-relaxed">Per-seat costs compound across multiple client projects. You're paying for infrastructure you don't control.</p>
+          </div>
+        </div>
+
+        <div class="flex gap-4 p-5 rounded-xl border border-dark-border bg-dark">
+          <div class="flex-shrink-0 w-9 h-9 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center">
+            <svg class="w-4 h-4 text-amber-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+          </div>
+          <div>
+            <h3 class="font-semibold text-sm text-white mb-1">Sharing results is painful</h3>
+            <p class="text-muted text-sm leading-relaxed">Screenshot exports and log files aren't a great client deliverable. You deserve something you're proud to send.</p>
+          </div>
+        </div>
+
+        <div class="flex gap-4 p-5 rounded-xl border border-dark-border bg-dark">
+          <div class="flex-shrink-0 w-9 h-9 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center">
+            <svg class="w-4 h-4 text-blue-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/></svg>
+          </div>
+          <div>
+            <h3 class="font-semibold text-sm text-white mb-1">No visibility during runs</h3>
+            <p class="text-muted text-sm leading-relaxed">Triggering tests and waiting blind isn't good enough. You need to see output as it happens.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       FEATURES
+  ═══════════════════════════════════════════ -->
+  <section id="features" class="py-24 md:py-32">
+    <div class="max-w-6xl mx-auto px-6">
+
+      <div class="max-w-xl mb-16">
+        <span class="section-label mb-4 block">
+          <span class="inline-block w-1.5 h-1.5 rounded-full bg-cyber-green"></span>
+          Features
+        </span>
+        <h2 class="section-heading mb-4">Everything you need,<br/>nothing you don't</h2>
+        <p class="section-sub">Built for agencies managing Cypress tests across multiple clients and projects.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+
+        <!-- Feature 1 -->
+        <div class="card-hover group">
+          <div class="w-10 h-10 rounded-lg bg-cyber-green/10 border border-cyber-green/20 flex items-center justify-center mb-5 group-hover:bg-cyber-green/15 transition-colors">
+            <svg class="w-5 h-5 text-cyber-green" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"/></svg>
+          </div>
+          <h3 class="font-semibold text-white mb-2">One-Click Test Runs</h3>
+          <p class="text-muted text-sm leading-relaxed">Trigger any test suite directly from the browser. No CI pipeline required — just hit run and watch it go.</p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="card-hover group">
+          <div class="w-10 h-10 rounded-lg bg-cyber-green/10 border border-cyber-green/20 flex items-center justify-center mb-5 group-hover:bg-cyber-green/15 transition-colors">
+            <svg class="w-5 h-5 text-cyber-green" viewBox="0 0 20 20" fill="currentColor"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/></svg>
+          </div>
+          <h3 class="font-semibold text-white mb-2">Real-Time Log Streaming</h3>
+          <p class="text-muted text-sm leading-relaxed">Watch test output appear line by line as it runs. Powered by WebSockets via Laravel Reverb — no polling, no page refreshes.</p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="card-hover group">
+          <div class="w-10 h-10 rounded-lg bg-cyber-green/10 border border-cyber-green/20 flex items-center justify-center mb-5 group-hover:bg-cyber-green/15 transition-colors">
+            <svg class="w-5 h-5 text-cyber-green" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 2a2 2 0 00-2 2v11a3 3 0 106 0V4a2 2 0 00-2-2H4zm1 14a1 1 0 100-2 1 1 0 000 2zm5-1.757l4.9-4.9a2 2 0 000-2.828L13.485 5.1a2 2 0 00-2.828 0L10 5.757v8.486zM16 18H9.071l6-6H16a2 2 0 012 2v2a2 2 0 01-2 2z" clip-rule="evenodd"/></svg>
+          </div>
+          <h3 class="font-semibold text-white mb-2">Branded Client Reports</h3>
+          <p class="text-muted text-sm leading-relaxed">Per-client logos, colours, and footer text. Each report is fully self-contained with inline screenshots, videos, and print-to-PDF support.</p>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="card-hover group">
+          <div class="w-10 h-10 rounded-lg bg-cyber-green/10 border border-cyber-green/20 flex items-center justify-center mb-5 group-hover:bg-cyber-green/15 transition-colors">
+            <svg class="w-5 h-5 text-cyber-green" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd"/></svg>
+          </div>
+          <h3 class="font-semibold text-white mb-2">Secure Shareable Links</h3>
+          <p class="text-muted text-sm leading-relaxed">30-day HMAC-signed URLs let clients view reports without creating an account. No guessable paths, no open storage buckets.</p>
+        </div>
+
+        <!-- Feature 5 -->
+        <div class="card-hover group">
+          <div class="w-10 h-10 rounded-lg bg-cyber-green/10 border border-cyber-green/20 flex items-center justify-center mb-5 group-hover:bg-cyber-green/15 transition-colors">
+            <svg class="w-5 h-5 text-cyber-green" viewBox="0 0 20 20" fill="currentColor"><path d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z"/></svg>
+          </div>
+          <h3 class="font-semibold text-white mb-2">Multi-Project &amp; Branch Support</h3>
+          <p class="text-muted text-sm leading-relaxed">Map projects to separate Git repositories with deploy keys. Override branches per run and manage environment variables at the suite level.</p>
+        </div>
+
+        <!-- Feature 6 -->
+        <div class="card-hover group">
+          <div class="w-10 h-10 rounded-lg bg-cyber-green/10 border border-cyber-green/20 flex items-center justify-center mb-5 group-hover:bg-cyber-green/15 transition-colors">
+            <svg class="w-5 h-5 text-cyber-green" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z" clip-rule="evenodd"/></svg>
+          </div>
+          <h3 class="font-semibold text-white mb-2">Role-Based Access</h3>
+          <p class="text-muted text-sm leading-relaxed">Admin and PM roles keep your team's permissions appropriate. Admins configure; PMs trigger runs and review results.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       HOW IT WORKS
+  ═══════════════════════════════════════════ -->
+  <section id="how-it-works" class="py-24 md:py-32 border-t border-dark-border bg-dark-card/30">
+    <div class="max-w-6xl mx-auto px-6">
+
+      <div class="max-w-xl mb-16 md:mb-20">
+        <span class="section-label mb-4 block">
+          <span class="inline-block w-1.5 h-1.5 rounded-full bg-cyber-green"></span>
+          How It Works
+        </span>
+        <h2 class="section-heading mb-4">From zero to report<br/>in three steps</h2>
+        <p class="section-sub">Set it up once. Run it whenever you need. Share with confidence.</p>
+      </div>
+
+      <div class="relative">
+        <!-- Connector line (desktop) -->
+        <div class="hidden lg:block absolute top-12 left-[calc(16.66%+1.25rem)] right-[calc(16.66%+1.25rem)] h-px bg-gradient-to-r from-dark-border via-cyber-green/30 to-dark-border"></div>
+
+        <div class="grid lg:grid-cols-3 gap-8 lg:gap-10">
+
+          <!-- Step 1 -->
+          <div class="relative flex flex-col gap-4">
+            <div class="flex items-center gap-4">
+              <div class="flex-shrink-0 w-10 h-10 rounded-full bg-cyber-green text-dark font-bold text-sm flex items-center justify-center z-10">
+                1
+              </div>
+              <div class="h-px flex-1 bg-dark-border lg:hidden"></div>
+            </div>
+            <div>
+              <h3 class="font-semibold text-white text-lg mb-2">Configure</h3>
+              <p class="text-muted text-sm leading-relaxed">Add your project, connect your Git repository with a deploy key, define your test suites, and set your environment variables. Set up client branding once and it applies to every report.</p>
+            </div>
+            <div class="card mt-auto">
+              <div class="text-xs font-mono text-muted space-y-1">
+                <div><span class="text-cyber-green">project</span> → Acme Corp</div>
+                <div><span class="text-cyber-green">repo</span> → git@github.com:acme/e2e.git</div>
+                <div><span class="text-cyber-green">branch</span> → main</div>
+                <div><span class="text-cyber-green">suite</span> → Smoke Tests</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="relative flex flex-col gap-4">
+            <div class="flex items-center gap-4">
+              <div class="flex-shrink-0 w-10 h-10 rounded-full bg-cyber-green text-dark font-bold text-sm flex items-center justify-center z-10">
+                2
+              </div>
+              <div class="h-px flex-1 bg-dark-border lg:hidden"></div>
+            </div>
+            <div>
+              <h3 class="font-semibold text-white text-lg mb-2">Run</h3>
+              <p class="text-muted text-sm leading-relaxed">Hit run from the dashboard. Your test suite is dispatched to a background queue and you watch the output stream live in your browser via WebSocket. No blind waiting.</p>
+            </div>
+            <div class="card mt-auto">
+              <div class="text-xs font-mono space-y-1">
+                <div class="text-muted">Dispatching to queue...</div>
+                <div class="flex gap-2"><span class="text-cyber-green">✓</span><span class="text-slate-300">login.cy.js</span><span class="text-muted">passing</span></div>
+                <div class="flex gap-2"><span class="text-amber-400">~</span><span class="text-slate-300">checkout.cy.js</span><span class="text-muted">running</span></div>
+                <div class="flex gap-2"><span class="text-muted">·</span><span class="text-muted">payments.cy.js</span><span class="text-muted">queued</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="relative flex flex-col gap-4">
+            <div class="flex items-center gap-4">
+              <div class="flex-shrink-0 w-10 h-10 rounded-full bg-cyber-green text-dark font-bold text-sm flex items-center justify-center z-10">
+                3
+              </div>
+            </div>
+            <div>
+              <h3 class="font-semibold text-white text-lg mb-2">Share</h3>
+              <p class="text-muted text-sm leading-relaxed">A branded, self-contained HTML report is generated automatically. Send your client a secure 30-day link — no login needed on their end, no account to create.</p>
+            </div>
+            <div class="card mt-auto">
+              <div class="text-xs font-mono space-y-1.5">
+                <div class="text-muted">Report ready</div>
+                <div class="text-cyber-green truncate">https://yourdomain.com/r/a8f3c…</div>
+                <div class="flex gap-2 mt-1"><span class="text-cyber-green">✓</span><span class="text-muted">Signed · expires 30 days</span></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       TECH STACK
+  ═══════════════════════════════════════════ -->
+  <section id="tech-stack" class="py-20 border-t border-dark-border">
+    <div class="max-w-6xl mx-auto px-6">
+
+      <div class="text-center mb-12">
+        <span class="section-label justify-center mb-4 block">
+          <span class="inline-block w-1.5 h-1.5 rounded-full bg-cyber-green"></span>
+          Tech Stack
+        </span>
+        <h2 class="section-heading mb-3">Built on a solid foundation</h2>
+        <p class="text-muted">Production-ready PHP and modern frontend tools you already know.</p>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+
+        <div class="card flex flex-col items-center gap-3 py-6 text-center">
+          <div class="w-10 h-10 rounded-lg bg-red-500/10 border border-red-500/20 flex items-center justify-center">
+            <svg class="w-5 h-5 text-red-400" viewBox="0 0 24 24" fill="currentColor"><path d="M23.642 5.43a.364.364 0 01.014.1v5.149c0 .135-.073.26-.189.326l-4.323 2.49v4.934a.378.378 0 01-.188.326L9.93 23.949a.316.316 0 01-.066.027.29.29 0 01-.066.017.348.348 0 01-.182-.044L.534 18.755a.376.376 0 01-.189-.326V2.974c0-.05.01-.098.027-.144a.312.312 0 01.066-.11l.002-.003c.017-.02.038-.04.059-.055h.003L5.044.05a.375.375 0 01.378 0l4.512 2.607h.002c.023.014.043.033.061.054l.003.004c.021.028.038.056.05.087a.344.344 0 01.017.11v9.767l3.748-2.166V5.527c0-.05.009-.1.02-.144a.426.426 0 01.064-.11l.003-.005a.354.354 0 01.06-.054h.003l4.512-2.607a.375.375 0 01.378 0l4.512 2.607.003.002c.023.015.043.033.061.055zm-.73 5.112V6.105L19.19 8.37v4.438l3.722-2.166zm-4.477 7.673v-4.44l-3.722 2.139v4.477l3.722-2.176zM1.72 3.296v15.084l8.19 4.73V7.92L1.72 3.296zm.378-.648l3.748 2.164 3.748-2.165-3.748-2.165-3.748 2.166zm4.126 14.7l3.748-2.166v-9.35L5.845 7.998l-.003-.001c-.028-.016-.054-.036-.077-.06a.354.354 0 01-.075-.156.375.375 0 01-.003-.142V3.944L1.94 6.11v4.437L6.224 17.348zm9.79-10.123l-3.748 2.166v9.35l3.748-2.166V7.225zm.376-.648l3.748 2.165-3.748 2.165-3.748-2.165 3.748-2.165zm-3.372 5.48l3.748-2.165V5.454l-3.748 2.166v4.437z"/></svg>
+          </div>
+          <div>
+            <div class="font-semibold text-sm text-white">Laravel 11</div>
+            <div class="text-xs text-muted mt-0.5">Backend framework</div>
+          </div>
+        </div>
+
+        <div class="card flex flex-col items-center gap-3 py-6 text-center">
+          <div class="w-10 h-10 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center">
+            <svg class="w-5 h-5 text-amber-400" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/><path d="M12 6v6l4 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <div class="font-semibold text-sm text-white">Filament v3</div>
+            <div class="text-xs text-muted mt-0.5">Admin panel</div>
+          </div>
+        </div>
+
+        <div class="card flex flex-col items-center gap-3 py-6 text-center">
+          <div class="w-10 h-10 rounded-lg bg-purple-500/10 border border-purple-500/20 flex items-center justify-center">
+            <svg class="w-5 h-5 text-purple-400" viewBox="0 0 24 24" fill="none"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div>
+            <div class="font-semibold text-sm text-white">Livewire 3</div>
+            <div class="text-xs text-muted mt-0.5">Dynamic UI</div>
+          </div>
+        </div>
+
+        <div class="card flex flex-col items-center gap-3 py-6 text-center">
+          <div class="w-10 h-10 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center">
+            <svg class="w-5 h-5 text-blue-400" viewBox="0 0 24 24" fill="none"><path d="M8.5 12a3.5 3.5 0 107 0 3.5 3.5 0 00-7 0z" stroke="currentColor" stroke-width="2"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <div class="font-semibold text-sm text-white">Alpine.js</div>
+            <div class="text-xs text-muted mt-0.5">Lightweight reactivity</div>
+          </div>
+        </div>
+
+        <div class="card flex flex-col items-center gap-3 py-6 text-center">
+          <div class="w-10 h-10 rounded-lg bg-cyber-green/10 border border-cyber-green/20 flex items-center justify-center">
+            <svg class="w-5 h-5 text-cyber-green" viewBox="0 0 24 24" fill="none"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div>
+            <div class="font-semibold text-sm text-white">Laravel Reverb</div>
+            <div class="text-xs text-muted mt-0.5">WebSockets</div>
+          </div>
+        </div>
+
+        <div class="card flex flex-col items-center gap-3 py-6 text-center">
+          <div class="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center">
+            <svg class="w-5 h-5 text-cyan-400" viewBox="0 0 24 24" fill="none"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div>
+            <div class="font-semibold text-sm text-white">Vite</div>
+            <div class="text-xs text-muted mt-0.5">Build tool</div>
+          </div>
+        </div>
+
+        <div class="card flex flex-col items-center gap-3 py-6 text-center">
+          <div class="w-10 h-10 rounded-lg bg-rose-500/10 border border-rose-500/20 flex items-center justify-center">
+            <svg class="w-5 h-5 text-rose-400" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="7" rx="1" stroke="currentColor" stroke-width="2"/><rect x="14" y="3" width="7" height="7" rx="1" stroke="currentColor" stroke-width="2"/><rect x="14" y="14" width="7" height="7" rx="1" stroke="currentColor" stroke-width="2"/><rect x="3" y="14" width="7" height="7" rx="1" stroke="currentColor" stroke-width="2"/></svg>
+          </div>
+          <div>
+            <div class="font-semibold text-sm text-white">Redis</div>
+            <div class="text-xs text-muted mt-0.5">Queue &amp; jobs</div>
+          </div>
+        </div>
+
+        <div class="card flex flex-col items-center gap-3 py-6 text-center">
+          <div class="w-10 h-10 rounded-lg bg-slate-500/10 border border-slate-500/20 flex items-center justify-center">
+            <svg class="w-5 h-5 text-slate-400" viewBox="0 0 24 24" fill="none"><ellipse cx="12" cy="5" rx="9" ry="3" stroke="currentColor" stroke-width="2"/><path d="M21 12c0 1.657-4.03 3-9 3S3 13.657 3 12" stroke="currentColor" stroke-width="2"/><path d="M3 5v14c0 1.657 4.03 3 9 3s9-1.343 9-3V5" stroke="currentColor" stroke-width="2"/></svg>
+          </div>
+          <div>
+            <div class="font-semibold text-sm text-white">MySQL / SQLite</div>
+            <div class="text-xs text-muted mt-0.5">Database</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       SELF-HOSTED VALUE
+  ═══════════════════════════════════════════ -->
+  <section class="py-24 md:py-32 border-t border-dark-border">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="relative overflow-hidden rounded-2xl border border-cyber-green/20 bg-gradient-to-br from-dark-card to-dark p-8 md:p-12">
+
+        <!-- Glow -->
+        <div class="absolute top-0 right-0 w-72 h-72 bg-cyber-green/5 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 w-48 h-48 bg-cyber-green/3 rounded-full blur-2xl pointer-events-none"></div>
+
+        <div class="relative grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+
+          <div>
+            <span class="section-label mb-4 block">
+              <span class="inline-block w-1.5 h-1.5 rounded-full bg-cyber-green"></span>
+              Self-Hosted
+            </span>
+            <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-white mb-5 leading-tight">
+              Your data never leaves<br/>your server
+            </h2>
+            <p class="text-muted text-base leading-relaxed mb-8">
+              When you host it yourself, you control everything. Test results, client data,
+              credentials — all of it stays where you put it. No SaaS terms of service, no usage
+              caps, no price hikes.
+            </p>
+            <a
+              href="https://github.com/benwake1/cypress-gui"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-primary"
+            >
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+              Get the code
+            </a>
+          </div>
+
+          <div class="grid grid-cols-1 gap-4">
+            <div class="flex gap-4 items-start p-4 rounded-xl border border-dark-border bg-dark/60">
+              <div class="flex-shrink-0 w-8 h-8 rounded-lg bg-cyber-green/15 flex items-center justify-center">
+                <svg class="w-4 h-4 text-cyber-green" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              </div>
+              <div>
+                <div class="font-semibold text-sm text-white mb-1">No per-seat pricing</div>
+                <div class="text-muted text-xs leading-relaxed">Add as many users, projects, and test suites as you need. The only cost is your server.</div>
+              </div>
+            </div>
+
+            <div class="flex gap-4 items-start p-4 rounded-xl border border-dark-border bg-dark/60">
+              <div class="flex-shrink-0 w-8 h-8 rounded-lg bg-cyber-green/15 flex items-center justify-center">
+                <svg class="w-4 h-4 text-cyber-green" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              </div>
+              <div>
+                <div class="font-semibold text-sm text-white mb-1">Full data ownership</div>
+                <div class="text-muted text-xs leading-relaxed">Test results, screenshots, videos, and client data live on your infrastructure. Export or migrate anytime.</div>
+              </div>
+            </div>
+
+            <div class="flex gap-4 items-start p-4 rounded-xl border border-dark-border bg-dark/60">
+              <div class="flex-shrink-0 w-8 h-8 rounded-lg bg-cyber-green/15 flex items-center justify-center">
+                <svg class="w-4 h-4 text-cyber-green" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              </div>
+              <div>
+                <div class="font-semibold text-sm text-white mb-1">White-label ready</div>
+                <div class="text-muted text-xs leading-relaxed">Run it under your own domain. Clients see your branding, not ours. It's your product.</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════ -->
+  <footer class="border-t border-dark-border py-10">
+    <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+
+      <div class="flex items-center gap-2.5">
+        <svg class="w-6 h-6" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="28" height="28" rx="7" fill="#04C38E" fill-opacity="0.12"/>
+          <rect x="0.75" y="0.75" width="26.5" height="26.5" rx="6.25" stroke="#04C38E" stroke-opacity="0.4" stroke-width="1.5"/>
+          <path d="M9.5 8.5L19.5 14L9.5 19.5V8.5Z" fill="#04C38E"/>
+        </svg>
+        <span class="text-sm text-muted">Cypress Dashboard &mdash; Built with Laravel &amp; love.</span>
+      </div>
+
+      <div class="flex items-center gap-6 text-sm text-muted">
+        <a
+          href="https://github.com/benwake1/cypress-gui"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center gap-1.5 hover:text-white transition-colors"
+        >
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+          GitHub
+        </a>
+        <span>&copy; 2026 Wake&amp;Co - All Rights Reserved.</span>
+      </div>
+
+    </div>
+  </footer>
+
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>

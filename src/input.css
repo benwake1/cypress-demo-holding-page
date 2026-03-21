@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    color-scheme: dark;
+  }
+
+  ::selection {
+    background-color: #04C38E33;
+    color: #04C38E;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #09090C;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #222229;
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #04C38E55;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center gap-2 bg-cyber-green text-dark font-semibold text-sm px-5 py-2.5 rounded-lg hover:bg-cyber-green-dark transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-cyber-green focus:ring-offset-2 focus:ring-offset-dark;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center gap-2 border border-dark-border text-white text-sm px-5 py-2.5 rounded-lg hover:border-cyber-green/50 hover:text-cyber-green transition-all duration-200;
+  }
+
+  .card {
+    @apply bg-dark-card border border-dark-border rounded-xl p-6;
+  }
+
+  .card-hover {
+    @apply card hover:border-cyber-green/30 hover:shadow-lg hover:shadow-cyber-green/5 transition-all duration-300;
+  }
+
+  .section-label {
+    @apply inline-flex items-center gap-2 text-cyber-green text-xs font-semibold uppercase tracking-widest;
+  }
+
+  .section-heading {
+    @apply text-3xl md:text-4xl font-bold tracking-tight text-white;
+  }
+
+  .section-sub {
+    @apply text-muted text-lg leading-relaxed;
+  }
+}
