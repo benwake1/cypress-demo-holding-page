@@ -148,6 +148,7 @@ ok "Files in place"
 info "Installing npm dependencies..."
 cd "$APP_DIR"
 npm install --prefer-offline 2>&1 | sed 's/^/    /'
+chmod +x "${APP_DIR}/node_modules/.bin/"*
 ok "npm install complete"
 
 info "Building Tailwind CSS..."
