@@ -9,13 +9,13 @@ set -euo pipefail
 ##
 ##  Example:
 ##    sudo bash install.sh example.com https://github.com/you/repo.git
-##    sudo bash install.sh example.com "" /etc/ssl/cloudflare/cert.pem /etc/ssl/cloudflare/key.pem
+##    sudo bash install.sh example.com "" /etc/ssl/cloudflare/origin.pem /etc/ssl/cloudflare/origin.key
 ##
 ##  SSL uses a Cloudflare Origin Certificate. Before running this script:
 ##    1. Generate an Origin Certificate in Cloudflare Dashboard
 ##       → SSL/TLS → Origin Server → Create Certificate
-##    2. Save the certificate to:   /etc/ssl/cloudflare/cert.pem
-##    3. Save the private key to:   /etc/ssl/cloudflare/key.pem
+##    2. Save the certificate to:   /etc/ssl/cloudflare/origin.pem
+##    3. Save the private key to:   /etc/ssl/cloudflare/origin.key
 ##    4. Set Cloudflare SSL mode to "Full (strict)"
 ##
 ##  If no repo URL is given the script assumes it's being run from inside
@@ -41,8 +41,8 @@ fi
 
 DOMAIN="${1}"
 GIT_REPO="${2:-}"
-SSL_CERT="${3:-/etc/ssl/cloudflare/cert.pem}"
-SSL_KEY="${4:-/etc/ssl/cloudflare/key.pem}"
+SSL_CERT="${3:-/etc/ssl/cloudflare/origin.pem}"
+SSL_KEY="${4:-/etc/ssl/cloudflare/origin.key}"
 
 APP_USER="www-cypress-site"
 APP_DIR="/var/www/cypress-dashboard-site"
