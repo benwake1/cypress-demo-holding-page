@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cypress Dashboard — Self-Hosted Test Management</title>
-  <meta name="description" content="A self-hosted Cypress test dashboard. Trigger test suites, stream logs in real time, and deliver branded reports to clients — all from your own server. No subscriptions. No vendor lock-in." />
-  <meta property="og:title" content="Cypress Dashboard — Self-Hosted Test Management" />
-  <meta property="og:description" content="Run tests, stream logs in real time, and deliver branded reports to clients — all from your own server." />
+  <title>Cypress & Playwright Dashboard — Self-Hosted Test Management</title>
+  <meta name="description" content="A self-hosted dashboard for Cypress and Playwright. Trigger test suites, stream logs in real time, and deliver branded reports to clients — all from your own server. No subscriptions. No vendor lock-in." />
+  <meta property="og:title" content="Cypress & Playwright Dashboard — Self-Hosted Test Management" />
+  <meta property="og:description" content="Run Cypress and Playwright tests, stream logs in real time, and deliver branded reports to clients — all from your own server." />
   <meta property="og:type" content="website" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -33,7 +33,7 @@
             </svg>
           </div>
           <span class="font-semibold text-sm text-white/90 group-hover:text-white transition-colors tracking-tight">
-            Cypress Dashboard
+            Test Dashboard
           </span>
         </a>
 
@@ -102,18 +102,18 @@
           <div>
             <span class="section-label">
               <span class="inline-block w-1.5 h-1.5 rounded-full bg-cyber-green"></span>
-              Open Source &middot; Self-Hosted &middot; Free
+              Cypress &amp; Playwright &middot; Open Source &middot; Self-Hosted &middot; Free
             </span>
           </div>
 
           <h1 class="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight leading-[1.08]">
-            The Cypress Dashboard
+            The Test Dashboard
             <span class="text-cyber-green">You Actually Own</span>
           </h1>
 
           <p class="text-muted text-lg leading-relaxed max-w-lg">
-            Trigger test suites from a web UI, watch logs stream in real time, and deliver
-            beautiful branded reports to clients — all from your own server.
+            Run Cypress and Playwright test suites from a web UI, watch logs stream in real time,
+            and deliver beautiful branded reports to clients — all from your own server.
             No subscriptions. No seats. No vendor lock-in.
           </p>
 
@@ -163,36 +163,39 @@
               <span class="w-3 h-3 rounded-full bg-red-500/70"></span>
               <span class="w-3 h-3 rounded-full bg-yellow-500/70"></span>
               <span class="w-3 h-3 rounded-full bg-green-500/70"></span>
-              <span class="ml-3 text-xs text-muted font-mono">cypress-dashboard — test run #147</span>
+              <span class="ml-3 text-xs text-muted font-mono">test-dashboard — playwright run #147</span>
             </div>
 
             <!-- Terminal body -->
             <div class="p-5 font-mono text-xs leading-6 text-slate-300 overflow-hidden">
-              <div class="text-muted">$ Dispatching test run → <span class="text-cyber-green">auth.cy.js</span></div>
-              <div class="mt-2 text-muted">&nbsp;&nbsp;Suite: <span class="text-white">Authentication</span> &nbsp;Branch: <span class="text-cyber-green">main</span></div>
-              <div class="mt-3 text-slate-400">  Running:&nbsp; auth.cy.js &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (1 of 3)</div>
-              <div class="mt-3 text-white">&nbsp;&nbsp;Authentication</div>
-              <div class="flex items-baseline gap-2">
-                <span class="text-cyber-green">    ✓</span>
-                <span class="text-slate-300">allows valid users to log in</span>
-                <span class="text-muted">(423ms)</span>
+              <div class="text-muted">$ Dispatching test run → <span class="text-cyber-green">auth.spec.ts</span></div>
+              <div class="mt-2 text-muted">&nbsp;&nbsp;Suite: <span class="text-white">Authentication</span> &nbsp;Runner: <span class="text-cyber-green">playwright</span></div>
+              <div class="mt-3 text-slate-400">  Running 4 tests using 1 worker</div>
+              <div class="mt-2 flex items-baseline gap-2">
+                <span class="text-cyber-green">  ✓</span>
+                <span class="text-slate-400">auth.spec.ts:12</span>
+                <span class="text-slate-300">› allows valid users to log in</span>
+                <span class="text-muted">(1.2s)</span>
               </div>
               <div class="flex items-baseline gap-2">
-                <span class="text-cyber-green">    ✓</span>
-                <span class="text-slate-300">rejects invalid credentials</span>
-                <span class="text-muted">(198ms)</span>
+                <span class="text-cyber-green">  ✓</span>
+                <span class="text-slate-400">auth.spec.ts:28</span>
+                <span class="text-slate-300">› rejects invalid credentials</span>
+                <span class="text-muted">(0.8s)</span>
               </div>
               <div class="flex items-baseline gap-2">
-                <span class="text-cyber-green">    ✓</span>
-                <span class="text-slate-300">persists session across reload</span>
-                <span class="text-muted">(891ms)</span>
+                <span class="text-cyber-green">  ✓</span>
+                <span class="text-slate-400">auth.spec.ts:44</span>
+                <span class="text-slate-300">› persists session across reload</span>
+                <span class="text-muted">(2.1s)</span>
               </div>
               <div class="flex items-baseline gap-2">
-                <span class="text-cyber-green">    ✓</span>
-                <span class="text-slate-300">redirects unauthenticated users</span>
-                <span class="text-muted">(312ms)</span>
+                <span class="text-cyber-green">  ✓</span>
+                <span class="text-slate-400">auth.spec.ts:61</span>
+                <span class="text-slate-300">› redirects unauthenticated users</span>
+                <span class="text-muted">(0.6s)</span>
               </div>
-              <div class="mt-3 text-slate-400">&nbsp;&nbsp;4 passing <span class="text-muted">(1.8s)</span></div>
+              <div class="mt-3 text-slate-400">&nbsp;&nbsp;4 passed <span class="text-muted">(4.7s)</span></div>
               <div class="mt-4 border-t border-dark-border pt-4">
                 <div class="text-muted">  Report generated</div>
                 <div class="flex items-center gap-2 mt-1">
@@ -226,7 +229,7 @@
     <div class="max-w-6xl mx-auto px-6 py-16">
       <div class="text-center mb-12">
         <p class="text-muted text-base">
-          Cypress Cloud charges per seat, per run, and per team — it adds up fast for agencies.
+          CI pipeline minutes, cloud seats, and vendor lock-in — it adds up fast for agencies.
         </p>
       </div>
       <div class="grid md:grid-cols-3 gap-6">
@@ -236,8 +239,8 @@
             <svg class="w-4 h-4 text-red-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/></svg>
           </div>
           <div>
-            <h3 class="font-semibold text-sm text-white mb-1">Cloud services are expensive</h3>
-            <p class="text-muted text-sm leading-relaxed">Per-seat costs compound across multiple client projects. You're paying for infrastructure you don't control.</p>
+            <h3 class="font-semibold text-sm text-white mb-1">CI pipeline costs sting</h3>
+            <p class="text-muted text-sm leading-relaxed">Every test run chewing through pipeline minutes across multiple client projects adds up fast when you're an agency.</p>
           </div>
         </div>
 
@@ -278,7 +281,7 @@
           Features
         </span>
         <h2 class="section-heading mb-4">Everything you need,<br/>nothing you don't</h2>
-        <p class="section-sub">Built for agencies managing Cypress tests across multiple clients and projects.</p>
+        <p class="section-sub">Built for agencies managing Cypress and Playwright tests across multiple clients and projects.</p>
       </div>
 
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -288,8 +291,8 @@
           <div class="w-10 h-10 rounded-lg bg-cyber-green/10 border border-cyber-green/20 flex items-center justify-center mb-5 group-hover:bg-cyber-green/15 transition-colors">
             <svg class="w-5 h-5 text-cyber-green" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"/></svg>
           </div>
-          <h3 class="font-semibold text-white mb-2">One-Click Test Runs</h3>
-          <p class="text-muted text-sm leading-relaxed">Trigger any test suite directly from the browser. No CI pipeline required — just hit run and watch it go.</p>
+          <h3 class="font-semibold text-white mb-2">Cypress &amp; Playwright Support</h3>
+          <p class="text-muted text-sm leading-relaxed">Run Cypress or Playwright test suites directly from the browser. Playwright projects are auto-discovered from your config — no CI pipeline required.</p>
         </div>
 
         <!-- Feature 2 -->
@@ -400,9 +403,9 @@
             <div class="card mt-auto">
               <div class="text-xs font-mono space-y-1">
                 <div class="text-muted">Dispatching to queue...</div>
-                <div class="flex gap-2"><span class="text-cyber-green">✓</span><span class="text-slate-300">login.cy.js</span><span class="text-muted">passing</span></div>
-                <div class="flex gap-2"><span class="text-amber-400">~</span><span class="text-slate-300">checkout.cy.js</span><span class="text-muted">running</span></div>
-                <div class="flex gap-2"><span class="text-muted">·</span><span class="text-muted">payments.cy.js</span><span class="text-muted">queued</span></div>
+                <div class="flex gap-2"><span class="text-cyber-green">✓</span><span class="text-slate-300">auth.spec.ts</span><span class="text-muted">passed</span></div>
+                <div class="flex gap-2"><span class="text-amber-400">~</span><span class="text-slate-300">checkout.spec.ts</span><span class="text-muted">running</span></div>
+                <div class="flex gap-2"><span class="text-muted">·</span><span class="text-muted">payments.spec.ts</span><span class="text-muted">queued</span></div>
               </div>
             </div>
           </div>
@@ -622,7 +625,7 @@
           <rect x="0.75" y="0.75" width="26.5" height="26.5" rx="6.25" stroke="#04C38E" stroke-opacity="0.4" stroke-width="1.5"/>
           <path d="M9.5 8.5L19.5 14L9.5 19.5V8.5Z" fill="#04C38E"/>
         </svg>
-        <span class="text-sm text-muted">Cypress Dashboard &mdash; Built with Laravel &amp; love.</span>
+        <span class="text-sm text-muted">Test Dashboard &mdash; Built with Laravel &amp; love.</span>
       </div>
 
       <div class="flex items-center gap-6 text-sm text-muted">
