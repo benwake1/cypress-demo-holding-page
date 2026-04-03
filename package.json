@@ -1,5 +1,5 @@
 {
-  "name": "cypress-dashboard-site",
+  "name": "signaldeck-site",
   "version": "1.0.0",
   "private": true,
   "scripts": {

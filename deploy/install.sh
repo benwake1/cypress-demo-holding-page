@@ -2,7 +2,7 @@
 set -euo pipefail
 
 ##############################################################################
-##  Cypress Dashboard Landing Page — Nginx Installer
+##  SignalDeck Landing Page — Nginx Installer
 ##
 ##  Usage:
 ##    sudo bash install.sh <domain> [git-repo-url] [cert-path] [key-path]
@@ -56,7 +56,7 @@ fi
 
 echo ""
 echo -e "${CYAN}╔══════════════════════════════════════════════════════╗${NC}"
-echo -e "${CYAN}║   Cypress Dashboard Site — Installer                 ║${NC}"
+echo -e "${CYAN}║   SignalDeck Site — Installer                        ║${NC}"
 echo -e "${CYAN}╚══════════════════════════════════════════════════════╝${NC}"
 echo ""
 info "Domain    : ${DOMAIN}"
