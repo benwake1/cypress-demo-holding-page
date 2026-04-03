@@ -1,5 +1,25 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <rect width="32" height="32" rx="8" fill="#09090C"/>
-  <rect x="1" y="1" width="30" height="30" rx="7" fill="none" stroke="#04C38E" stroke-opacity="0.6" stroke-width="1.5"/>
-  <polygon points="11,9 22,16 11,23" fill="#04C38E"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <defs>
+    <linearGradient id="panel" x1="6" y1="5" x2="26" y2="27" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#16324A"/>
+      <stop offset="1" stop-color="#0B1728"/>
+    </linearGradient>
+    <linearGradient id="bars" x1="10" y1="12" x2="21" y2="24" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#39D5FF"/>
+      <stop offset="1" stop-color="#7FF7B8"/>
+    </linearGradient>
+    <linearGradient id="check" x1="12" y1="13" x2="23" y2="21" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#EAF6FF"/>
+      <stop offset="1" stop-color="#7BF6E8"/>
+    </linearGradient>
+  </defs>
+  <rect x="4.5" y="4.5" width="23" height="23" rx="5.5" fill="url(#panel)"/>
+  <rect x="6" y="6" width="20" height="20" rx="4" stroke="#315675" stroke-width="0.8"/>
+  <circle cx="9.7" cy="9.8" r="1" fill="#39D5FF"/>
+  <circle cx="12.4" cy="9.8" r="1" fill="#7BF6E8" fill-opacity="0.72"/>
+  <circle cx="15.1" cy="9.8" r="1" fill="#7FF7B8" fill-opacity="0.5"/>
+  <rect x="9" y="17.6" width="2.6" height="4" rx="1.1" fill="url(#bars)"/>
+  <rect x="12.8" y="14.3" width="2.6" height="7.3" rx="1.1" fill="url(#bars)"/>
+  <rect x="16.6" y="11.4" width="2.6" height="10.2" rx="1.1" fill="url(#bars)"/>
+  <path d="M15.3 17.5L17.3 19.5L21.8 14.9" stroke="url(#check)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>

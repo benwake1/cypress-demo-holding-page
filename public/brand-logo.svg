@@ -1,0 +1,31 @@
+<svg width="980" height="240" viewBox="0 0 980 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="sd-panel" x1="40" y1="28" x2="240" y2="238" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#16324A"/>
+      <stop offset="1" stop-color="#0B1728"/>
+    </linearGradient>
+    <linearGradient id="sd-bars" x1="82" y1="92" x2="179" y2="194" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#39D5FF"/>
+      <stop offset="1" stop-color="#7FF7B8"/>
+    </linearGradient>
+    <linearGradient id="sd-check" x1="106" y1="112" x2="208" y2="181" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#EAF6FF"/>
+      <stop offset="1" stop-color="#7BF6E8"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="34" y="34" width="200" height="200" rx="44" fill="url(#sd-panel)"/>
+  <rect x="48" y="48" width="172" height="172" rx="34" stroke="#315675" stroke-width="3"/>
+
+  <circle cx="78" cy="76" r="6.5" fill="#39D5FF"/>
+  <circle cx="97" cy="76" r="6.5" fill="#7BF6E8" opacity="0.72"/>
+  <circle cx="116" cy="76" r="6.5" fill="#7FF7B8" opacity="0.5"/>
+
+  <rect x="70" y="154" width="26" height="36" rx="13" fill="url(#sd-bars)"/>
+  <rect x="108" y="124" width="26" height="66" rx="13" fill="url(#sd-bars)"/>
+  <rect x="146" y="97" width="26" height="93" rx="13" fill="url(#sd-bars)"/>
+
+  <path d="M132 155L152 175L198 126" stroke="url(#sd-check)" stroke-width="17" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <text x="280" y="154" fill="#EAF6FF" font-size="72" font-weight="700" font-family="SF Pro Display, Inter, Helvetica Neue, Arial, sans-serif">SignalDeck</text>
+</svg>

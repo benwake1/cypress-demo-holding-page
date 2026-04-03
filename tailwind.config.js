@@ -4,15 +4,17 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'cyber-green': '#04C38E',
-        'cyber-green-dark': '#03A87A',
+        'cyber-green': '#39D5FF',
+        'cyber-green-dark': '#20BCE7',
+        'brand-aqua': '#7BF6E8',
+        'brand-mint': '#7FF7B8',
         'dark': {
-          DEFAULT: '#09090C',
-          card: '#111116',
-          raised: '#17171D',
-          border: '#222229',
+          DEFAULT: '#08111E',
+          card: '#0E1D30',
+          raised: '#16324A',
+          border: '#315675',
         },
-        'muted': '#888896',
+        'muted': '#9DB3C5',
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
@@ -20,7 +22,7 @@ module.exports = {
       },
       backgroundImage: {
         'dot-grid': 'radial-gradient(circle, #ffffff0d 1px, transparent 1px)',
-        'hero-glow': 'radial-gradient(ellipse 80% 50% at 50% -10%, #04C38E22, transparent)',
+        'hero-glow': 'radial-gradient(ellipse 80% 50% at 50% -10%, #39D5FF22, transparent)',
       },
       backgroundSize: {
         'dot-grid': '28px 28px',
