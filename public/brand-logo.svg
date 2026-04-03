@@ -27,5 +27,5 @@
 
   <path d="M132 155L152 175L198 126" stroke="url(#sd-check)" stroke-width="17" stroke-linecap="round" stroke-linejoin="round"/>
 
-  <text x="280" y="154" fill="#EAF6FF" font-size="72" font-weight="700" font-family="SF Pro Display, Inter, Helvetica Neue, Arial, sans-serif">SignalDeck</text>
+  <text x="280" y="154" fill="#EAF6FF" font-size="72" font-weight="700" font-family="SF Pro Display, Inter, Helvetica Neue, Arial, sans-serif">SignalDeck CI</text>
 </svg>

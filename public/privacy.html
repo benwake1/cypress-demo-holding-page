@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Privacy Policy — SignalDeck</title>
+  <title>Privacy Policy — SignalDeck CI</title>
   <meta name="description" content="Privacy Policy for SignalDeck — the self-hosted test dashboard, website, and macOS companion app." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -34,6 +34,7 @@
           <a href="/#how-it-works" class="hover:text-white transition-colors duration-200">How It Works</a>
           <a href="/#demo" class="hover:text-white transition-colors duration-200">Demo</a>
           <a href="/#tech-stack" class="hover:text-white transition-colors duration-200">Tech Stack</a>
+          <a href="//docs.signaldeck.tech" target="_blank" class="hover:text-white transition-colors duration-200">Docs</a>
         </div>
 
         <!-- Desktop CTA -->
@@ -126,7 +127,7 @@
           <ul class="space-y-2">
             <li class="flex gap-2"><span class="text-cyber-green mt-0.5">—</span><span><strong class="text-white">The Website</strong> — the marketing and documentation site at signaldeck.tech</span></li>
             <li class="flex gap-2"><span class="text-cyber-green mt-0.5">—</span><span><strong class="text-white">The Dashboard</strong> — the self-hosted Laravel application you deploy on your own server</span></li>
-            <li class="flex gap-2"><span class="text-cyber-green mt-0.5">—</span><span><strong class="text-white">The macOS App</strong> — the SignalDeck companion app distributed via the Mac App Store or direct download</span></li>
+            <li class="flex gap-2"><span class="text-cyber-green mt-0.5">—</span><span><strong class="text-white">The macOS App</strong> — the SignalDeck CI companion app distributed via the Mac App Store or direct download</span></li>
           </ul>
           <p>The data controller for the website is Ben Wake / Wake&amp;Co. For the self-hosted dashboard, <strong class="text-white">you</strong> are the data controller — you own and operate the infrastructure.</p>
         </div>
@@ -267,7 +268,7 @@
 
       <div class="flex items-center gap-2.5">
         <img src="/brand-symbol.svg" alt="SignalDeck" class="w-6 h-6" />
-        <span class="text-sm text-muted">SignalDeck &mdash; Built with Laravel &amp; love.</span>
+        <span class="text-sm text-muted">SignalDeck &mdash; Built with love.</span>
       </div>
 
       <div class="flex items-center gap-6 text-sm text-muted">
@@ -281,12 +282,12 @@
           GitHub
         </a>
         <a href="/privacy.html" class="hover:text-white transition-colors text-cyber-green">Privacy Policy</a>
-        <span>&copy; 2026 Wake&amp;Co - All Rights Reserved.</span>
+          <span>&copy; <span class="date"></span> Wake&amp;Co / SignalDeck / SignalDeckCI - All Rights Reserved.</span>
       </div>
 
     </div>
   </footer>
-
+  <script>document.querySelector('.date').appendChild(document.createTextNode(new Date().getFullYear()))</script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </body>
 </html>

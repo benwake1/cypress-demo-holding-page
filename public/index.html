@@ -37,6 +37,7 @@
           <a href="#how-it-works" class="hover:text-white transition-colors duration-200">How It Works</a>
           <a href="#demo" class="hover:text-white transition-colors duration-200">Demo</a>
           <a href="#tech-stack" class="hover:text-white transition-colors duration-200">Tech Stack</a>
+          <a href="//docs.signaldeck.tech" target="_blank" class="hover:text-white transition-colors duration-200">Docs</a>
         </div>
 
         <!-- Desktop CTA -->
@@ -672,7 +673,7 @@
 
       <div class="flex items-center gap-2.5">
         <img src="/brand-symbol.svg" alt="SignalDeck" class="w-6 h-6" />
-        <span class="text-sm text-muted">SignalDeck &mdash; Built with Laravel &amp; love.</span>
+        <span class="text-sm text-muted">SignalDeck &mdash; Built with love.</span>
       </div>
 
       <div class="flex items-center gap-6 text-sm text-muted">
@@ -686,12 +687,12 @@
           GitHub
         </a>
         <a href="/privacy.html" class="hover:text-white transition-colors">Privacy Policy</a>
-        <span>&copy; 2026 Wake&amp;Co - All Rights Reserved.</span>
+        <span>&copy; <span class="date"></span> Wake&amp;Co / SignalDeck / SignalDeckCI - All Rights Reserved.</span>
       </div>
 
     </div>
   </footer>
-
+  <script>document.querySelector('.date').appendChild(document.createTextNode(new Date().getFullYear()))</script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </body>
 </html>
