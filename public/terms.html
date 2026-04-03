@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Privacy Policy — SignalDeck CI</title>
-  <meta name="description" content="Privacy Policy for SignalDeck CI — the self-hosted test dashboard, website, and macOS companion app." />
+  <title>Terms of Use — SignalDeck CI</title>
+  <meta name="description" content="Terms of Use for SignalDeck CI — the self-hosted test dashboard, website, and macOS companion app." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800;0,14..32,900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -13,14 +13,9 @@
 </head>
 <body class="bg-dark text-white font-sans antialiased" x-data="{ mobileOpen: false }">
 
-  <!-- ═══════════════════════════════════════════
-       NAV
-  ═══════════════════════════════════════════ -->
   <nav class="fixed top-0 left-0 right-0 z-50 border-b border-dark-border/60 bg-dark/75 backdrop-blur-md">
     <div class="max-w-6xl mx-auto px-6">
       <div class="h-16 flex items-center justify-between">
-
-        <!-- Logo -->
         <a href="/" class="flex items-center gap-2.5 group">
           <img src="/brand-symbol.svg" alt="SignalDeck CI" class="w-8 h-8" />
           <span class="font-semibold text-sm text-white/90 group-hover:text-white transition-colors tracking-tight">
@@ -28,7 +23,6 @@
           </span>
         </a>
 
-        <!-- Desktop Links -->
         <div class="hidden md:flex items-center gap-7 text-sm text-muted">
           <a href="/#features" class="hover:text-white transition-colors duration-200">Features</a>
           <a href="/#how-it-works" class="hover:text-white transition-colors duration-200">How It Works</a>
@@ -37,7 +31,6 @@
           <a href="//docs.signaldeck.tech" target="_blank" class="hover:text-white transition-colors duration-200">Docs</a>
         </div>
 
-        <!-- Desktop CTA -->
         <div class="hidden md:flex items-center gap-3">
           <a
             href="https://github.com/benwake1/cypress-gui"
@@ -51,7 +44,6 @@
           </a>
         </div>
 
-        <!-- Mobile Hamburger -->
         <button
           class="md:hidden p-2 text-muted hover:text-white transition-colors"
           @click="mobileOpen = !mobileOpen"
@@ -60,10 +52,8 @@
           <svg x-show="!mobileOpen" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 5h14a1 1 0 010 2H3a1 1 0 110-2zm0 4h14a1 1 0 010 2H3a1 1 0 110-2zm0 4h14a1 1 0 010 2H3a1 1 0 110-2z" clip-rule="evenodd"/></svg>
           <svg x-show="mobileOpen" class="w-5 h-5" style="display:none;" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
         </button>
-
       </div>
 
-      <!-- Mobile Menu -->
       <div x-show="mobileOpen" x-transition class="md:hidden border-t border-dark-border py-4 flex flex-col gap-1" style="display:none;">
         <a href="/#features" class="px-2 py-2 text-sm text-muted hover:text-white transition-colors" @click="mobileOpen = false">Features</a>
         <a href="/#how-it-works" class="px-2 py-2 text-sm text-muted hover:text-white transition-colors" @click="mobileOpen = false">How It Works</a>
@@ -77,10 +67,6 @@
     </div>
   </nav>
 
-
-  <!-- ═══════════════════════════════════════════
-       HERO
-  ═══════════════════════════════════════════ -->
   <section class="relative pt-32 pb-16 md:pt-40 md:pb-20 overflow-hidden">
     <div class="absolute inset-0 bg-dot-grid bg-dot-grid [mask-image:radial-gradient(ellipse_80%_60%_at_50%_0%,black_40%,transparent_100%)] opacity-100"></div>
     <div class="absolute inset-0 bg-hero-glow"></div>
@@ -88,22 +74,16 @@
 
     <div class="relative max-w-3xl mx-auto px-6 text-center">
       <span class="inline-block text-xs font-mono font-medium tracking-widest text-cyber-green uppercase mb-4">Legal</span>
-      <h1 class="text-4xl md:text-5xl font-bold tracking-tight text-white mb-4">Privacy Policy</h1>
+      <h1 class="text-4xl md:text-5xl font-bold tracking-tight text-white mb-4">Terms of Use</h1>
       <p class="text-muted text-lg leading-relaxed">
-        This policy covers the SignalDeck CI website, self-hosted dashboard, and macOS companion app.
+        These terms govern use of the SignalDeck CI website, self-hosted dashboard, and macOS companion app.
       </p>
       <p class="text-muted/60 text-sm mt-3 font-mono">Last updated: April 3, 2026</p>
     </div>
   </section>
 
-
-  <!-- ═══════════════════════════════════════════
-       CONTENT
-  ═══════════════════════════════════════════ -->
   <section class="pb-24 md:pb-32">
     <div class="max-w-3xl mx-auto px-6">
-
-      <!-- Summary callout -->
       <div class="border border-cyber-green/20 bg-cyber-green/5 rounded-xl p-6 mb-12">
         <div class="flex gap-3">
           <div class="flex-shrink-0 w-5 h-5 mt-0.5">
@@ -111,145 +91,119 @@
           </div>
           <div>
             <p class="text-white font-semibold text-sm mb-1">The short version</p>
-            <p class="text-muted text-sm leading-relaxed">SignalDeck CI does not sell your data, does not use third-party analytics, and does not collect personal information beyond what is strictly necessary to operate each product. The self-hosted dashboard and macOS app communicate exclusively with infrastructure you control.</p>
+            <p class="text-muted text-sm leading-relaxed">SignalDeck CI is provided on an "as is" and "as available" basis. You are responsible for evaluating, deploying, and operating it in your own environment. We do not promise uptime, support, maintenance, fitness for a particular purpose, or that the software will be error-free, secure, or suitable for every use case.</p>
           </div>
         </div>
       </div>
 
-      <!-- Scope -->
       <div class="mb-10">
         <h2 class="text-xl font-bold text-white mb-4 flex items-center gap-3">
           <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-dark-raised border border-dark-border text-cyber-green text-xs font-bold flex-shrink-0">1</span>
-          Scope of This Policy
+          Acceptance of Terms
         </h2>
         <div class="pl-10 text-muted text-sm leading-relaxed space-y-3">
-          <p>This Privacy Policy applies to all products and services operated under the SignalDeck CI brand, including:</p>
-          <ul class="space-y-2">
-            <li class="flex gap-2"><span class="text-cyber-green mt-0.5">—</span><span><strong class="text-white">The Website</strong> — the marketing and documentation site at signaldeck.tech</span></li>
-            <li class="flex gap-2"><span class="text-cyber-green mt-0.5">—</span><span><strong class="text-white">The Dashboard</strong> — the self-hosted Laravel application you deploy on your own server</span></li>
-            <li class="flex gap-2"><span class="text-cyber-green mt-0.5">—</span><span><strong class="text-white">The macOS App</strong> — the SignalDeck CI companion app distributed via the Mac App Store or direct download</span></li>
-          </ul>
-          <p>The data controller for the website is Ben Wake / Wake&amp;Co. For the self-hosted dashboard, <strong class="text-white">you</strong> are the data controller — you own and operate the infrastructure.</p>
+          <p>By accessing or using the SignalDeck CI website, source code, self-hosted dashboard, macOS companion app, documentation, downloads, or any related materials, you agree to these Terms of Use.</p>
+          <p>If you do not agree to these terms, do not access or use SignalDeck CI.</p>
         </div>
       </div>
 
-      <!-- Website -->
       <div class="mb-10">
         <h2 class="text-xl font-bold text-white mb-4 flex items-center gap-3">
           <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-dark-raised border border-dark-border text-cyber-green text-xs font-bold flex-shrink-0">2</span>
-          The Website (signaldeck.tech)
+          No Managed Service
         </h2>
         <div class="pl-10 text-muted text-sm leading-relaxed space-y-3">
-          <p>The SignalDeck CI website is a static marketing site. We do not use first-party analytics, tracking pixels, or advertising scripts.</p>
-          <p><strong class="text-white">What our hosting provider may log:</strong> Standard web server access logs (IP address, browser user agent, pages visited, timestamps) may be retained by our hosting provider for operational and security purposes. We do not access or process these logs for marketing purposes.</p>
-          <p><strong class="text-white">Contact forms / email:</strong> If you contact us by email, we will use your email address solely to respond to your enquiry and will not add you to any mailing list without your explicit consent.</p>
-          <p><strong class="text-white">Feedback and bug reports:</strong> If you submit feature requests, feedback, or bug reports through our Fider board, the information you choose to provide may be collected and stored so we can review, respond to, prioritise, and resolve product feedback and support issues. This may include your name, email address, screenshots, attachments, and the contents of your submission.</p>
-          <p><strong class="text-white">No cookies:</strong> The website does not set any persistent cookies.</p>
+          <p>SignalDeck CI is offered as software and related informational materials, not as a managed, monitored, or guaranteed service.</p>
+          <p>You are responsible for deployment, hosting, configuration, security, backups, monitoring, maintenance, and legal compliance in your own environment.</p>
+          <p>Any assistance, updates, maintenance, fixes, or responses to issues are provided, if at all, at our discretion and may be modified, delayed, or discontinued at any time.</p>
         </div>
       </div>
 
-      <!-- Dashboard -->
       <div class="mb-10">
         <h2 class="text-xl font-bold text-white mb-4 flex items-center gap-3">
           <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-dark-raised border border-dark-border text-cyber-green text-xs font-bold flex-shrink-0">3</span>
-          The Self-Hosted Dashboard
+          Use at Your Own Risk
         </h2>
         <div class="pl-10 text-muted text-sm leading-relaxed space-y-3">
-          <p>The SignalDeck CI dashboard is open-source software that you install and operate on your own server. <strong class="text-white">We have no access to your instance, your data, or your users.</strong></p>
-          <p>When you self-host SignalDeck CI, you assume the role of data controller under applicable privacy law. The data your instance processes — user accounts, test run results, client records, authentication credentials — all resides on infrastructure you own and control.</p>
-          <p><strong class="text-white">What the software stores:</strong></p>
-          <ul class="space-y-2 mt-2">
-            <li class="flex gap-2"><span class="text-cyber-green mt-0.5">—</span><span>User accounts (name, email address, hashed password or SSO tokens)</span></li>
-            <li class="flex gap-2"><span class="text-cyber-green mt-0.5">—</span><span>Test run results, logs, and associated metadata</span></li>
-            <li class="flex gap-2"><span class="text-cyber-green mt-0.5">—</span><span>Client and project records you create</span></li>
-            <li class="flex gap-2"><span class="text-cyber-green mt-0.5">—</span><span>Session tokens and API keys (stored as hashed values)</span></li>
-          </ul>
-          <p class="mt-2">None of this data is transmitted to us. The dashboard does not phone home, send telemetry, or contact any infrastructure we operate. The only outbound connections it makes are those you explicitly configure (e.g. SMTP for email, Slack webhooks).</p>
-          <p>As the operator, you are responsible for maintaining your own privacy policy for your end users and for complying with applicable data protection laws (GDPR, UK GDPR, CCPA, etc.).</p>
+          <p>You are responsible for determining whether SignalDeck CI is appropriate for your environment, workflows, users, customers, and compliance obligations.</p>
+          <p>You should independently test the platform before relying on it in production and should not use it for safety-critical, life-critical, regulated, or other high-risk scenarios unless you have independently verified that it is suitable for that purpose.</p>
         </div>
       </div>
 
-      <!-- macOS App -->
       <div class="mb-10">
         <h2 class="text-xl font-bold text-white mb-4 flex items-center gap-3">
           <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-dark-raised border border-dark-border text-cyber-green text-xs font-bold flex-shrink-0">4</span>
-          The macOS App
+          Disclaimer of Warranties
         </h2>
         <div class="pl-10 text-muted text-sm leading-relaxed space-y-3">
-          <p>The SignalDeck CI macOS app is a native client that connects exclusively to a SignalDeck CI server URL that you configure. It does not relay, mirror, or forward any data to us or to any third-party service.</p>
-
-          <p><strong class="text-white">Data stored locally on your Mac:</strong></p>
-          <ul class="space-y-2 mt-2">
-            <li class="flex gap-2"><span class="text-cyber-green mt-0.5">—</span><span><strong class="text-white">Server URL</strong> — stored in macOS application preferences</span></li>
-            <li class="flex gap-2"><span class="text-cyber-green mt-0.5">—</span><span><strong class="text-white">Authentication credentials</strong> — API tokens or session credentials stored securely in the macOS Keychain using Apple's standard security APIs</span></li>
-            <li class="flex gap-2"><span class="text-cyber-green mt-0.5">—</span><span><strong class="text-white">App preferences</strong> — notification settings and UI preferences stored in macOS UserDefaults</span></li>
-          </ul>
-
-          <p class="mt-2"><strong class="text-white">What we do not collect:</strong> We do not collect analytics, crash reports, device identifiers, usage telemetry, or any information about the server you connect to. There are no third-party SDKs embedded in the app that collect or transmit data.</p>
-
-          <p><strong class="text-white">Network communications:</strong> All outbound network activity is directed exclusively to the server URL you have configured. No other connections are made.</p>
-
-          <p><strong class="text-white">Authentication:</strong> The app supports username/password and SSO authentication. All authentication is handled between the app and your server. We have no visibility into your credentials, session state, or authentication flow.</p>
+          <p>To the fullest extent permitted by applicable law, SignalDeck CI is provided "as is" and "as available", without warranties of any kind, whether express, implied, statutory, or otherwise.</p>
+          <p>This includes, without limitation, any implied warranties of merchantability, fitness for a particular purpose, title, non-infringement, availability, accuracy, compatibility, security, reliability, or that defects will be corrected.</p>
+          <p>We do not warrant that the website, code, app, documentation, downloads, updates, or any related materials will be uninterrupted, error-free, secure, or free from harmful components.</p>
         </div>
       </div>
 
-      <!-- Third Parties -->
       <div class="mb-10">
         <h2 class="text-xl font-bold text-white mb-4 flex items-center gap-3">
           <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-dark-raised border border-dark-border text-cyber-green text-xs font-bold flex-shrink-0">5</span>
-          Third-Party Services
+          Limitation of Liability
         </h2>
         <div class="pl-10 text-muted text-sm leading-relaxed space-y-3">
-          <p>SignalDeck CI does not integrate with any third-party analytics, advertising, crash reporting, or data-broker services across any of its products.</p>
-          <p>The website loads fonts from Google Fonts. This means Google's servers will receive your IP address when the page loads. You can prevent this by using a browser extension that blocks external font requests.</p>
-          <p>Source code is hosted on GitHub. Visiting the repository is subject to GitHub's Privacy Policy.</p>
-          <p>We use Fider to manage public feedback, feature requests, and bug reports. If you submit content through our Fider board, that content may be processed and hosted using Fider's platform and may be visible to other users if the board or post is public. Please avoid including sensitive personal information, secrets, or confidential customer data in feedback submissions.</p>
+          <p>To the fullest extent permitted by applicable law, we will not be liable for any direct, indirect, incidental, special, consequential, exemplary, or punitive damages, or for any loss of profits, revenue, business, goodwill, data, use, or other intangible losses, arising out of or related to your access to, use of, inability to use, or reliance on SignalDeck CI.</p>
+          <p>This limitation applies whether the claim is based on contract, tort (including negligence), statutory duty, strict liability, or any other legal theory, and even if we have been advised of the possibility of such damages.</p>
+          <p>Where liability cannot be excluded under applicable law, our liability will be limited to the minimum amount permitted by law.</p>
         </div>
       </div>
 
-      <!-- Children -->
       <div class="mb-10">
         <h2 class="text-xl font-bold text-white mb-4 flex items-center gap-3">
           <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-dark-raised border border-dark-border text-cyber-green text-xs font-bold flex-shrink-0">6</span>
-          Children's Privacy
+          Third-Party Services and Content
         </h2>
-        <div class="pl-10 text-muted text-sm leading-relaxed">
-          <p>SignalDeck CI products are intended for professional software development teams. They are not directed at children under 13. We do not knowingly collect personal information from children.</p>
+        <div class="pl-10 text-muted text-sm leading-relaxed space-y-3">
+          <p>SignalDeck CI may link to, integrate with, or depend on third-party services, infrastructure, repositories, package registries, authentication providers, hosting providers, or user-supplied systems. We do not control those services and are not responsible for their availability, security, performance, legality, content, or practices.</p>
+          <p>Your use of any third-party service is governed by that provider's own terms and policies.</p>
         </div>
       </div>
 
-      <!-- Your Rights -->
       <div class="mb-10">
         <h2 class="text-xl font-bold text-white mb-4 flex items-center gap-3">
           <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-dark-raised border border-dark-border text-cyber-green text-xs font-bold flex-shrink-0">7</span>
-          Your Rights
+          Your Responsibilities
         </h2>
         <div class="pl-10 text-muted text-sm leading-relaxed space-y-3">
-          <p>Because we do not hold personal data about users of the dashboard or macOS app, there is nothing for us to provide, correct, delete, or transfer on request.</p>
-          <p>If your data is held by a self-hosted SignalDeck CI instance, any access, export, correction, or deletion request should be directed to the administrator of that instance — they are the data controller.</p>
-          <p>For any data associated with the website, email correspondence, or feedback you submitted to our Fider board, contact us at the address below and we will respond promptly. Depending on the nature of the request, Fider may also handle some platform-level account or service data under its own privacy process.</p>
+          <p>You are responsible for ensuring that your use of SignalDeck CI complies with all laws, regulations, contractual obligations, and internal policies that apply to you.</p>
+          <p>You are also responsible for any data you upload, process, or expose through the platform, and for obtaining any permissions, notices, or consents required in connection with that use.</p>
         </div>
       </div>
 
-      <!-- Changes -->
       <div class="mb-10">
         <h2 class="text-xl font-bold text-white mb-4 flex items-center gap-3">
           <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-dark-raised border border-dark-border text-cyber-green text-xs font-bold flex-shrink-0">8</span>
-          Changes to This Policy
+          Maintenance and Project Status
         </h2>
-        <div class="pl-10 text-muted text-sm leading-relaxed">
-          <p>We may update this Privacy Policy from time to time. Any changes will be reflected here with a revised "Last updated" date. Continued use of any SignalDeck CI product after changes are published constitutes acceptance of the revised policy.</p>
+        <div class="pl-10 text-muted text-sm leading-relaxed space-y-3">
+          <p>We may choose to maintain, improve, update, pause, archive, or discontinue SignalDeck CI or any part of it at any time.</p>
+          <p>Although we may make reasonable efforts to maintain the project, we do not guarantee updates, bug fixes, security patches, compatibility updates, support, or ongoing development.</p>
         </div>
       </div>
 
-      <!-- Contact -->
       <div class="mb-10">
         <h2 class="text-xl font-bold text-white mb-4 flex items-center gap-3">
           <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-dark-raised border border-dark-border text-cyber-green text-xs font-bold flex-shrink-0">9</span>
+          Changes to These Terms
+        </h2>
+        <div class="pl-10 text-muted text-sm leading-relaxed">
+          <p>We may update these Terms of Use from time to time. Any changes will be reflected on this page with a revised "Last updated" date. By continuing to use SignalDeck CI after revised terms are posted, you agree to the updated terms.</p>
+        </div>
+      </div>
+
+      <div class="mb-10">
+        <h2 class="text-xl font-bold text-white mb-4 flex items-center gap-3">
+          <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-dark-raised border border-dark-border text-cyber-green text-xs font-bold flex-shrink-0">10</span>
           Contact
         </h2>
         <div class="pl-10 text-muted text-sm leading-relaxed">
-          <p>For questions about this Privacy Policy, please contact:</p>
+          <p>If you have questions about these Terms of Use, please contact:</p>
           <div class="mt-4 bg-dark-card border border-dark-border rounded-xl p-5 space-y-1">
             <p class="text-white font-semibold">Ben Wake — Wake&amp;Co</p>
             <p>Email: <a href="mailto:hello@signaldeck.tech" class="text-cyber-green hover:underline">hello@signaldeck.tech</a></p>
@@ -261,13 +215,8 @@
     </div>
   </section>
 
-
-  <!-- ═══════════════════════════════════════════
-       FOOTER
-  ═══════════════════════════════════════════ -->
   <footer class="border-t border-dark-border py-10">
     <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
-
       <div class="flex items-center gap-2.5">
         <img src="/brand-symbol.svg" alt="SignalDeck CI" class="w-6 h-6" />
         <span class="text-sm text-muted">SignalDeck CI &mdash; Built with love.</span>
@@ -283,13 +232,13 @@
           <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
           GitHub
         </a>
-        <a href="/privacy.html" class="hover:text-white transition-colors text-cyber-green">Privacy Policy</a>
-        <a href="/terms.html" class="hover:text-white transition-colors">Terms of Use</a>
-          <span>&copy; <span class="date"></span> Wake&amp;Co / SignalDeck / SignalDeck CI - All Rights Reserved.</span>
+        <a href="/privacy.html" class="hover:text-white transition-colors">Privacy Policy</a>
+        <a href="/terms.html" class="hover:text-white transition-colors text-cyber-green">Terms of Use</a>
+        <span>&copy; <span class="date"></span> Wake&amp;Co / SignalDeck / SignalDeck CI - All Rights Reserved.</span>
       </div>
-
     </div>
   </footer>
+
   <script>document.querySelector('.date').appendChild(document.createTextNode(new Date().getFullYear()))</script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </body>
