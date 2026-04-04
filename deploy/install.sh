@@ -10,6 +10,7 @@ set -euo pipefail
 ##  Example:
 ##    sudo bash install.sh example.com https://github.com/you/repo.git
 ##    sudo bash install.sh example.com "" /etc/ssl/cloudflare/origin.pem /etc/ssl/cloudflare/origin.key
+##    sudo bash install.sh example.com /etc/ssl/cloudflare/origin.pem /etc/ssl/cloudflare/origin.key
 ##
 ##  SSL uses a Cloudflare Origin Certificate. Before running this script:
 ##    1. Generate an Origin Certificate in Cloudflare Dashboard
@@ -40,9 +41,73 @@ if [[ $# -lt 1 ]]; then
 fi
 
 DOMAIN="${1}"
-GIT_REPO="${2:-}"
-SSL_CERT="${3:-/etc/ssl/cloudflare/origin.pem}"
-SSL_KEY="${4:-/etc/ssl/cloudflare/origin.key}"
+DEFAULT_SSL_CERT="/etc/ssl/cloudflare/origin.pem"
+DEFAULT_SSL_KEY="/etc/ssl/cloudflare/origin.key"
+GIT_REPO=""
+SSL_CERT="$DEFAULT_SSL_CERT"
+SSL_KEY="$DEFAULT_SSL_KEY"
+
+looks_like_repo() {
+    [[ "$1" =~ ^https?:// ]] || [[ "$1" =~ ^git@ ]] || [[ "$1" =~ ^ssh:// ]]
+}
+
+looks_like_cert_path() {
+    [[ "$1" == *.pem ]] || [[ "$1" == *.crt ]] || [[ "$1" == *.cer ]]
+}
+
+looks_like_key_path() {
+    [[ "$1" == *.key ]]
+}
+
+case $# in
+    1)
+        ;;
+    2)
+        if looks_like_repo "${2}"; then
+            GIT_REPO="${2}"
+        else
+            die "Second argument '${2}' is ambiguous.
+
+  If this is a repo URL, pass it as:
+    sudo bash install.sh ${DOMAIN} https://github.com/you/repo.git
+
+  If this is a certificate path, also provide the key path:
+    sudo bash install.sh ${DOMAIN} /path/to/cert.pem /path/to/key.key"
+        fi
+        ;;
+    3)
+        if [[ -z "${2}" ]]; then
+            SSL_CERT="${3}"
+        elif looks_like_repo "${2}"; then
+            GIT_REPO="${2}"
+            SSL_CERT="${3}"
+        elif looks_like_cert_path "${2}" && looks_like_key_path "${3}"; then
+            SSL_CERT="${2}"
+            SSL_KEY="${3}"
+        else
+            die "Could not determine argument order.
+
+  Expected one of:
+    sudo bash install.sh ${DOMAIN} <repo-url>
+    sudo bash install.sh ${DOMAIN} <repo-url> <cert-path>
+    sudo bash install.sh ${DOMAIN} <cert-path> <key-path>"
+        fi
+        ;;
+    *)
+        GIT_REPO="${2:-}"
+        SSL_CERT="${3:-$DEFAULT_SSL_CERT}"
+        SSL_KEY="${4:-$DEFAULT_SSL_KEY}"
+
+        if [[ -z "$GIT_REPO" ]] && looks_like_cert_path "$SSL_CERT" && looks_like_key_path "$SSL_KEY"; then
+            :
+        elif [[ -n "$GIT_REPO" ]] && ! looks_like_repo "$GIT_REPO"; then
+            die "Repo URL '${GIT_REPO}' does not look like a git URL.
+
+  If you are not providing a repo URL, pass an empty second argument:
+    sudo bash install.sh ${DOMAIN} \"\" ${SSL_CERT} ${SSL_KEY}"
+        fi
+        ;;
+esac
 
 APP_USER="www-cypress-site"
 APP_DIR="/var/www/cypress-dashboard-site"
@@ -69,7 +134,7 @@ echo ""
 # ─── Check dependencies ───────────────────────────────────────────────────────
 info "Checking dependencies..."
 
-for cmd in nginx node npm; do
+for cmd in nginx node npm openssl; do
     if ! command -v "$cmd" &>/dev/null; then
         die "'$cmd' is not installed. Please install it and re-run."
     fi
@@ -99,8 +164,66 @@ fi
 
 # Verify the key is not world-readable
 chmod 600 "$SSL_KEY"
+
+info "Validating certificate and private key..."
+
+if ! openssl x509 -in "$SSL_CERT" -noout >/dev/null 2>&1; then
+    if openssl pkey -in "$SSL_CERT" -noout >/dev/null 2>&1; then
+        die "The certificate path points to a private key, not a certificate: ${SSL_CERT}
+
+  It looks like the certificate and key arguments may be swapped.
+
+  Correct usage without a repo URL:
+    sudo bash install.sh ${DOMAIN} ${SSL_CERT} ${SSL_KEY}
+
+  Or explicitly:
+    sudo bash install.sh ${DOMAIN} \"\" /path/to/cert.pem /path/to/key.key"
+    fi
+
+    die "The certificate file is not a valid PEM X.509 certificate: ${SSL_CERT}"
+fi
+
+if ! openssl pkey -in "$SSL_KEY" -noout >/dev/null 2>&1; then
+    if openssl x509 -in "$SSL_KEY" -noout >/dev/null 2>&1; then
+        die "The private key path points to a certificate, not a private key: ${SSL_KEY}
+
+  It looks like the certificate and key arguments may be swapped.
+
+  Correct usage without a repo URL:
+    sudo bash install.sh ${DOMAIN} ${SSL_CERT} ${SSL_KEY}
+
+  Or explicitly:
+    sudo bash install.sh ${DOMAIN} \"\" /path/to/cert.pem /path/to/key.key"
+    fi
+
+    die "The private key file is not a valid PEM private key: ${SSL_KEY}"
+fi
+
+if ! diff \
+    <(openssl x509 -in "$SSL_CERT" -pubkey -noout 2>/dev/null) \
+    <(openssl pkey -in "$SSL_KEY" -pubout 2>/dev/null) \
+    >/dev/null; then
+    echo ""
+    die "The SSL certificate and private key do not match.
+
+  Certificate: ${SSL_CERT}
+  Private key: ${SSL_KEY}
+
+  This usually means one of the following:
+    1. The certificate and key were copied from different Cloudflare Origin certs
+    2. The key file was overwritten or truncated
+    3. The wrong file paths were passed to install.sh
+
+  Re-download or regenerate a matching pair in Cloudflare:
+    SSL/TLS → Origin Server → Create Certificate
+
+  Then re-run:
+    sudo bash install.sh ${DOMAIN} \"${GIT_REPO}\" ${SSL_CERT} ${SSL_KEY}"
+fi
+
 ok "Certificate: ${SSL_CERT}"
 ok "Private key: ${SSL_KEY}"
+ok "Certificate and private key match"
 
 # ─── System user ──────────────────────────────────────────────────────────────
 info "Creating system user '${APP_USER}'..."
