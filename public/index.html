@@ -37,6 +37,7 @@
           <a href="#how-it-works" class="hover:text-white transition-colors duration-200">How It Works</a>
           <a href="#demo" class="hover:text-white transition-colors duration-200">Demo</a>
           <a href="#tech-stack" class="hover:text-white transition-colors duration-200">Tech Stack</a>
+          <a href="#pricing" class="hover:text-white transition-colors duration-200">Pricing</a>
           <a href="//docs.signaldeck.tech" target="_blank" class="hover:text-white transition-colors duration-200">Docs</a>
         </div>
 
@@ -72,6 +73,22 @@
         <a href="#how-it-works" class="px-2 py-2 text-sm text-muted hover:text-white transition-colors" @click="mobileOpen = false">How It Works</a>
         <a href="#demo" class="px-2 py-2 text-sm text-muted hover:text-white transition-colors" @click="mobileOpen = false">Demo</a>
         <a href="#tech-stack" class="px-2 py-2 text-sm text-muted hover:text-white transition-colors" @click="mobileOpen = false">Tech Stack</a>
+<<<<<<< Updated upstream
+=======
+        <a href="#pricing" class="px-2 py-2 text-sm text-muted hover:text-white transition-colors" @click="mobileOpen = false">Pricing</a>
+        <a
+          href="https://apps.apple.com/gb/app/signaldeck-ci/id6761611080?mt=12&itscg=30200&itsct=apps_box_link&mttnsubad=6761611080"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="mt-2 flex justify-center"
+        >
+          <img
+            src="https://tools.applemediaservices.com/api/badges/download-on-the-mac-app-store/white/en-us?size=250x83"
+            alt="Download on the Mac App Store"
+            class="h-10 w-auto"
+          />
+        </a>
+>>>>>>> Stashed changes
         <a href="https://github.com/benwake1/cypress-gui" target="_blank" rel="noopener noreferrer" class="mt-2 btn-secondary justify-center text-xs">
           <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
           View on GitHub
@@ -677,6 +694,289 @@
 
         </div>
       </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       PRICING
+  ═══════════════════════════════════════════ -->
+  <section id="pricing" class="py-24 md:py-32 border-t border-dark-border" x-data="{ annual: false }">
+    <div class="max-w-6xl mx-auto px-6">
+
+      <!-- Header -->
+      <div class="text-center mb-12">
+        <span class="section-label justify-center mb-4 block">
+          <span class="inline-block w-1.5 h-1.5 rounded-full bg-cyber-green"></span>
+          Pricing
+        </span>
+        <h2 class="section-heading mb-4">Simple, honest pricing</h2>
+        <p class="section-sub">One plan, one server, everything included. No seats, no pipeline minutes, no surprises.</p>
+
+        <!-- Billing toggle -->
+        <div class="mt-8 inline-flex items-center rounded-lg border border-dark-border bg-dark-card p-1 gap-1">
+          <button
+            @click="annual = false"
+            :class="!annual ? 'bg-dark-raised text-white font-semibold' : 'text-muted'"
+            class="px-4 py-2 text-sm rounded-lg transition-colors duration-200"
+          >Monthly</button>
+          <button
+            @click="annual = true"
+            :class="annual ? 'bg-dark-raised text-white font-semibold' : 'text-muted'"
+            class="flex items-center gap-2 px-4 py-2 text-sm rounded-lg transition-colors duration-200"
+          >Annual <span class="text-cyber-green text-xs font-semibold">Save 17%</span></button>
+        </div>
+      </div>
+
+      <!-- Cards -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 items-start">
+
+        <!-- ── Starter ─────────────────────────────────────────────────── -->
+        <div class="card flex flex-col">
+
+          <div class="mb-1">
+            <span class="text-xs font-semibold uppercase tracking-widest text-muted">Starter</span>
+          </div>
+          <div class="flex items-end gap-1 mt-3 mb-1">
+            <span class="text-4xl font-bold text-white" x-text="annual ? '£20' : '£29'">£29</span>
+            <span class="text-muted text-sm mb-1">/mo</span>
+          </div>
+          <p class="text-xs text-muted mb-6">
+            <span x-show="!annual">Billed monthly &middot; cancel anytime</span>
+            <span x-show="annual" style="display:none">Billed £242/year &middot; 2 months free</span>
+          </p>
+
+          <!-- CTA -->
+          <a
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-secondary w-full justify-center mb-6"
+          >
+            Get started
+            <svg class="w-3 h-3 opacity-60" viewBox="0 0 12 12" fill="none"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4.5M9.5 2.5V7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+
+          <!-- Features -->
+          <div class="border-t border-dark-border pt-5 flex-1">
+            <p class="text-xs text-muted uppercase tracking-widest font-semibold mb-4">What's included</p>
+            <ul class="space-y-3">
+              <li class="flex items-start gap-2.5">
+                <svg class="w-4 h-4 text-cyber-green flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                <span class="text-sm text-white font-medium">2 concurrent runners</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <svg class="w-4 h-4 text-cyber-green flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                <span class="text-sm text-white font-medium">2 parallel browser workers</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <svg class="w-4 h-4 text-cyber-green flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                <span class="text-sm text-muted">Dedicated server · 2 vCPU · 4 GB</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <svg class="w-4 h-4 text-cyber-green flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                <span class="text-sm text-muted">Cypress &amp; Playwright</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <svg class="w-4 h-4 text-cyber-green flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                <span class="text-sm text-muted">Real-time log streaming</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <svg class="w-4 h-4 text-cyber-green flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                <span class="text-sm text-muted">Branded client reports</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <svg class="w-4 h-4 text-cyber-green flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                <span class="text-sm text-muted">30-day shareable report links</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <svg class="w-4 h-4 text-cyber-green flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                <span class="text-sm text-muted">Unlimited projects &amp; suites</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <svg class="w-4 h-4 text-cyber-green flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                <span class="text-sm text-muted">Role-based access</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- ── Standard (highlighted) ─────────────────────────────────── -->
+        <div class="relative flex flex-col rounded-xl p-6 border" style="background-color:#0E1D30; border-color:rgba(57,213,255,0.4);">
+
+          <!-- Badge -->
+          <div class="absolute left-0 right-0 flex justify-center" style="top:-0.875rem;">
+            <span class="bg-cyber-green text-dark text-xs font-bold px-3 py-1 rounded-full">Most popular</span>
+          </div>
+
+          <div class="mb-1 mt-2">
+            <span class="text-xs font-semibold uppercase tracking-widest text-muted">Standard</span>
+          </div>
+          <div class="flex items-end gap-1 mt-3 mb-1">
+            <span class="text-4xl font-bold text-white" x-text="annual ? '£48' : '£69'">£69</span>
+            <span class="text-muted text-sm mb-1">/mo</span>
+          </div>
+          <p class="text-xs text-muted mb-6">
+            <span x-show="!annual">Billed monthly &middot; cancel anytime</span>
+            <span x-show="annual" style="display:none">Billed £575/year &middot; 2 months free</span>
+          </p>
+
+          <!-- CTA -->
+          <a
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-primary w-full justify-center mb-6"
+          >
+            Get started
+            <svg class="w-3 h-3 opacity-70" viewBox="0 0 12 12" fill="none"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4.5M9.5 2.5V7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+
+          <!-- Features -->
+          <div class="border-t pt-5 flex-1" style="border-color:rgba(49,86,117,0.6);">
+            <p class="text-xs text-muted uppercase tracking-widest font-semibold mb-4">Upgrades from Starter</p>
+            <ul class="space-y-3 mb-5">
+              <li class="flex items-start gap-2.5">
+                <svg class="w-4 h-4 text-cyber-green flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                <span class="text-sm text-white font-medium">3 concurrent runners</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <svg class="w-4 h-4 text-cyber-green flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                <span class="text-sm text-white font-medium">3 parallel browser workers</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <svg class="w-4 h-4 text-cyber-green flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                <span class="text-sm text-muted">AMD CPU · higher baseline perf</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <svg class="w-4 h-4 text-cyber-green flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                <span class="text-sm text-muted">Dedicated server · 4 vCPU · 8 GB</span>
+              </li>
+            </ul>
+            <div class="text-xs text-muted flex items-center gap-2">
+              <span class="flex-1 h-px bg-dark-border"></span>
+              <span>Everything in Starter</span>
+              <span class="flex-1 h-px bg-dark-border"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── Pro ────────────────────────────────────────────────────── -->
+        <div class="card flex flex-col">
+
+          <div class="mb-1">
+            <span class="text-xs font-semibold uppercase tracking-widest text-muted">Pro</span>
+          </div>
+          <div class="flex items-end gap-1 mt-3 mb-1">
+            <span class="text-4xl font-bold text-white" x-text="annual ? '£90' : '£129'">£129</span>
+            <span class="text-muted text-sm mb-1">/mo</span>
+          </div>
+          <p class="text-xs text-muted mb-6">
+            <span x-show="!annual">Billed monthly &middot; cancel anytime</span>
+            <span x-show="annual" style="display:none">Billed £1,075/year &middot; 2 months free</span>
+          </p>
+
+          <!-- CTA -->
+          <a
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-secondary w-full justify-center mb-6"
+          >
+            Get started
+            <svg class="w-3 h-3 opacity-60" viewBox="0 0 12 12" fill="none"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4.5M9.5 2.5V7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+
+          <!-- Features -->
+          <div class="border-t border-dark-border pt-5 flex-1">
+            <p class="text-xs text-muted uppercase tracking-widest font-semibold mb-4">Upgrades from Standard</p>
+            <ul class="space-y-3 mb-5">
+              <li class="flex items-start gap-2.5">
+                <svg class="w-4 h-4 text-cyber-green flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                <span class="text-sm text-white font-medium">4 parallel browser workers</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <svg class="w-4 h-4 text-cyber-green flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                <span class="text-sm text-muted">AMD CPU · double the RAM</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <svg class="w-4 h-4 text-cyber-green flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                <span class="text-sm text-muted">Dedicated server · 8 vCPU · 16 GB</span>
+              </li>
+            </ul>
+            <div class="text-xs text-muted flex items-center gap-2">
+              <span class="flex-1 h-px bg-dark-border"></span>
+              <span>Everything in Standard</span>
+              <span class="flex-1 h-px bg-dark-border"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── Enterprise ─────────────────────────────────────────────── -->
+        <div class="card flex flex-col">
+
+          <div class="mb-1">
+            <span class="text-xs font-semibold uppercase tracking-widest text-muted">Enterprise</span>
+          </div>
+          <div class="flex items-end gap-1 mt-3 mb-1">
+            <span class="text-4xl font-bold text-white" x-text="annual ? '£159' : '£229'">£229</span>
+            <span class="text-muted text-sm mb-1">/mo</span>
+          </div>
+          <p class="text-xs text-muted mb-6">
+            <span x-show="!annual">Billed monthly &middot; cancel anytime</span>
+            <span x-show="annual" style="display:none">Billed £1,908/year &middot; 2 months free</span>
+          </p>
+
+          <!-- CTA -->
+          <a
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-secondary w-full justify-center mb-6"
+          >
+            Get started
+            <svg class="w-3 h-3 opacity-60" viewBox="0 0 12 12" fill="none"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4.5M9.5 2.5V7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+
+          <!-- Features -->
+          <div class="border-t border-dark-border pt-5 flex-1">
+            <p class="text-xs text-muted uppercase tracking-widest font-semibold mb-4">Upgrades from Pro</p>
+            <ul class="space-y-3 mb-5">
+              <li class="flex items-start gap-2.5">
+                <svg class="w-4 h-4 text-cyber-green flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                <span class="text-sm text-white font-medium">Dedicated physical CPU cores</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <svg class="w-4 h-4 text-cyber-green flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                <span class="text-sm text-white font-medium">Zero host contention</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <svg class="w-4 h-4 text-cyber-green flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                <span class="text-sm text-muted">Guaranteed consistent run times</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <svg class="w-4 h-4 text-cyber-green flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                <span class="text-sm text-muted">Dedicated server · 8 vCPU · 32 GB</span>
+              </li>
+            </ul>
+            <div class="text-xs text-muted flex items-center gap-2">
+              <span class="flex-1 h-px bg-dark-border"></span>
+              <span>Everything in Pro</span>
+              <span class="flex-1 h-px bg-dark-border"></span>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /grid -->
+
+      <!-- Lemon Squeezy note -->
+      <div class="mt-10 text-center">
+        <p class="text-xs text-muted">
+          <svg class="inline w-3.5 h-3.5 mr-1 opacity-50" style="vertical-align:-2px" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/></svg>
+          Checkout is handled securely by <strong class="text-white font-medium">Lemon Squeezy</strong> — clicking a plan will take you to their payment page. All major cards accepted. Cancel anytime.
+        </p>
+      </div>
+
     </div>
   </section>
 
