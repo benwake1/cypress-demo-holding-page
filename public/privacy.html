@@ -19,8 +19,6 @@
   <nav class="fixed top-0 left-0 right-0 z-50 border-b border-dark-border/60 bg-dark/75 backdrop-blur-md">
     <div class="max-w-6xl mx-auto px-6">
       <div class="h-16 flex items-center justify-between">
-
-        <!-- Logo -->
         <a href="/" class="flex items-center gap-2.5 group">
           <img src="/brand-symbol.svg" alt="SignalDeck CI" class="w-8 h-8" />
           <span class="font-semibold text-sm text-white/90 group-hover:text-white transition-colors tracking-tight">
@@ -28,8 +26,7 @@
           </span>
         </a>
 
-        <!-- Desktop Links -->
-        <div class="hidden md:flex items-center gap-7 text-sm text-muted">
+        <div class="hidden lg:flex items-center gap-7 text-sm text-muted">
           <a href="/#features" class="hover:text-white transition-colors duration-200">Features</a>
           <a href="/#how-it-works" class="hover:text-white transition-colors duration-200">How It Works</a>
           <a href="/#demo" class="hover:text-white transition-colors duration-200">Demo</a>
@@ -37,8 +34,7 @@
           <a href="//docs.signaldeck.tech" target="_blank" class="hover:text-white transition-colors duration-200">Docs</a>
         </div>
 
-        <!-- Desktop CTA -->
-        <div class="hidden md:flex items-center gap-3">
+        <div class="hidden lg:flex items-center gap-3">
           <a
             href="https://github.com/benwake1/signaldeck-ci-server"
             target="_blank"
@@ -51,20 +47,17 @@
           </a>
         </div>
 
-        <!-- Mobile Hamburger -->
         <button
-          class="md:hidden p-2 text-muted hover:text-white transition-colors"
+          class="lg:hidden p-2 text-muted hover:text-white transition-colors"
           @click="mobileOpen = !mobileOpen"
           aria-label="Toggle menu"
         >
           <svg x-show="!mobileOpen" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 5h14a1 1 0 010 2H3a1 1 0 110-2zm0 4h14a1 1 0 010 2H3a1 1 0 110-2zm0 4h14a1 1 0 010 2H3a1 1 0 110-2z" clip-rule="evenodd"/></svg>
           <svg x-show="mobileOpen" class="w-5 h-5" style="display:none;" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
         </button>
-
       </div>
 
-      <!-- Mobile Menu -->
-      <div x-show="mobileOpen" x-transition class="md:hidden border-t border-dark-border py-4 flex flex-col gap-1" style="display:none;">
+      <div x-show="mobileOpen" x-transition class="lg:hidden border-t border-dark-border py-4 flex flex-col gap-1" style="display:none;">
         <a href="/#features" class="px-2 py-2 text-sm text-muted hover:text-white transition-colors" @click="mobileOpen = false">Features</a>
         <a href="/#how-it-works" class="px-2 py-2 text-sm text-muted hover:text-white transition-colors" @click="mobileOpen = false">How It Works</a>
         <a href="/#demo" class="px-2 py-2 text-sm text-muted hover:text-white transition-colors" @click="mobileOpen = false">Demo</a>
@@ -76,6 +69,13 @@
       </div>
     </div>
   </nav>
+
+
+
+
+
+
+
 
 
   <!-- ═══════════════════════════════════════════
@@ -285,11 +285,18 @@
         </a>
         <a href="/privacy.html" class="hover:text-white transition-colors text-cyber-green">Privacy Policy</a>
         <a href="/terms.html" class="hover:text-white transition-colors">Terms of Use</a>
-          <span>&copy; <span class="date"></span> Wake&amp;Co / SignalDeck / SignalDeck CI - All Rights Reserved.</span>
+        <span>&copy; <span class="date"></span> Wake&amp;Co / SignalDeck / SignalDeck CI - All Rights Reserved.</span>
       </div>
 
     </div>
   </footer>
+
+
+
+
+
+
+
   <script>document.querySelector('.date').appendChild(document.createTextNode(new Date().getFullYear()))</script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </body>

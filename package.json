@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "npx tailwindcss -i ./src/input.css -o ./public/css/style.css --watch",
-    "build": "npx tailwindcss -i ./src/input.css -o ./public/css/style.css --minify"
+    "build:pages": "node ./scripts/render-partials.mjs",
+    "dev": "node ./scripts/dev.mjs",
+    "build": "npm run build:pages && npx tailwindcss -i ./src/input.css -o ./public/css/style.css --minify"
   },
   "devDependencies": {
     "tailwindcss": "^3.4.0"

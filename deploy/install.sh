@@ -2,15 +2,21 @@
 set -euo pipefail
 
 ##############################################################################
-##  SignalDeck Landing Page — Nginx Installer
+##  SignalDeck Landing Page — Nginx Bootstrap
 ##
 ##  Usage:
-##    sudo bash install.sh <domain> [git-repo-url] [cert-path] [key-path]
+##    sudo bash install.sh <domain> [cert-path] [key-path]
 ##
 ##  Example:
-##    sudo bash install.sh example.com https://github.com/you/repo.git
-##    sudo bash install.sh example.com "" /etc/ssl/cloudflare/origin.pem /etc/ssl/cloudflare/origin.key
+##    sudo bash install.sh example.com
 ##    sudo bash install.sh example.com /etc/ssl/cloudflare/origin.pem /etc/ssl/cloudflare/origin.key
+##
+##  This script prepares the server only:
+##    - creates the static site directory
+##    - installs the Nginx vhost
+##    - points Nginx at /var/www/cypress-dashboard-site/public
+##
+##  Upload the built ./public output separately from your local machine.
 ##
 ##  SSL uses a Cloudflare Origin Certificate. Before running this script:
 ##    1. Generate an Origin Certificate in Cloudflare Dashboard
@@ -18,12 +24,8 @@ set -euo pipefail
 ##    2. Save the certificate to:   /etc/ssl/cloudflare/origin.pem
 ##    3. Save the private key to:   /etc/ssl/cloudflare/origin.key
 ##    4. Set Cloudflare SSL mode to "Full (strict)"
-##
-##  If no repo URL is given the script assumes it's being run from inside
-##  the already-cloned project directory.
 ##############################################################################
 
-# ─── Colours ──────────────────────────────────────────────────────────────────
 GREEN='\033[0;32m'
 CYAN='\033[0;36m'
 YELLOW='\033[1;33m'
@@ -32,170 +34,65 @@ NC='\033[0m'
 
 ok()   { echo -e "  ${GREEN}✓${NC}  $*"; }
 info() { echo -e "  ${CYAN}→${NC}  $*"; }
-warn() { echo -e "  ${YELLOW}!${NC}  $*"; }
 die()  { echo -e "  ${RED}✗${NC}  $*" >&2; exit 1; }
 
-# ─── Args ─────────────────────────────────────────────────────────────────────
 if [[ $# -lt 1 ]]; then
-    die "Usage: sudo bash install.sh <domain> [git-repo-url] [cert-path] [key-path]"
+    die "Usage: sudo bash install.sh <domain> [cert-path] [key-path]"
 fi
 
 DOMAIN="${1}"
 DEFAULT_SSL_CERT="/etc/ssl/cloudflare/origin.pem"
 DEFAULT_SSL_KEY="/etc/ssl/cloudflare/origin.key"
-GIT_REPO=""
-SSL_CERT="$DEFAULT_SSL_CERT"
-SSL_KEY="$DEFAULT_SSL_KEY"
-
-looks_like_repo() {
-    [[ "$1" =~ ^https?:// ]] || [[ "$1" =~ ^git@ ]] || [[ "$1" =~ ^ssh:// ]]
-}
-
-looks_like_cert_path() {
-    [[ "$1" == *.pem ]] || [[ "$1" == *.crt ]] || [[ "$1" == *.cer ]]
-}
-
-looks_like_key_path() {
-    [[ "$1" == *.key ]]
-}
-
-case $# in
-    1)
-        ;;
-    2)
-        if looks_like_repo "${2}"; then
-            GIT_REPO="${2}"
-        else
-            die "Second argument '${2}' is ambiguous.
-
-  If this is a repo URL, pass it as:
-    sudo bash install.sh ${DOMAIN} https://github.com/you/repo.git
-
-  If this is a certificate path, also provide the key path:
-    sudo bash install.sh ${DOMAIN} /path/to/cert.pem /path/to/key.key"
-        fi
-        ;;
-    3)
-        if [[ -z "${2}" ]]; then
-            SSL_CERT="${3}"
-        elif looks_like_repo "${2}"; then
-            GIT_REPO="${2}"
-            SSL_CERT="${3}"
-        elif looks_like_cert_path "${2}" && looks_like_key_path "${3}"; then
-            SSL_CERT="${2}"
-            SSL_KEY="${3}"
-        else
-            die "Could not determine argument order.
-
-  Expected one of:
-    sudo bash install.sh ${DOMAIN} <repo-url>
-    sudo bash install.sh ${DOMAIN} <repo-url> <cert-path>
-    sudo bash install.sh ${DOMAIN} <cert-path> <key-path>"
-        fi
-        ;;
-    *)
-        GIT_REPO="${2:-}"
-        SSL_CERT="${3:-$DEFAULT_SSL_CERT}"
-        SSL_KEY="${4:-$DEFAULT_SSL_KEY}"
-
-        if [[ -z "$GIT_REPO" ]] && looks_like_cert_path "$SSL_CERT" && looks_like_key_path "$SSL_KEY"; then
-            :
-        elif [[ -n "$GIT_REPO" ]] && ! looks_like_repo "$GIT_REPO"; then
-            die "Repo URL '${GIT_REPO}' does not look like a git URL.
-
-  If you are not providing a repo URL, pass an empty second argument:
-    sudo bash install.sh ${DOMAIN} \"\" ${SSL_CERT} ${SSL_KEY}"
-        fi
-        ;;
-esac
+SSL_CERT="${2:-$DEFAULT_SSL_CERT}"
+SSL_KEY="${3:-$DEFAULT_SSL_KEY}"
 
 APP_USER="www-cypress-site"
 APP_DIR="/var/www/cypress-dashboard-site"
+PUBLIC_DIR="${APP_DIR}/public"
 NGINX_AVAILABLE="/etc/nginx/sites-available/cypress-dashboard-site"
 NGINX_ENABLED="/etc/nginx/sites-enabled/cypress-dashboard-site"
 
-# ─── Root check ───────────────────────────────────────────────────────────────
 if [[ $EUID -ne 0 ]]; then
     die "This script must be run as root (use sudo)"
 fi
 
 echo ""
 echo -e "${CYAN}╔══════════════════════════════════════════════════════╗${NC}"
-echo -e "${CYAN}║   SignalDeck Site — Installer                        ║${NC}"
+echo -e "${CYAN}║   SignalDeck Site — Bootstrap                        ║${NC}"
 echo -e "${CYAN}╚══════════════════════════════════════════════════════╝${NC}"
 echo ""
 info "Domain    : ${DOMAIN}"
-info "Directory : ${APP_DIR}"
+info "Directory : ${PUBLIC_DIR}"
 info "User      : ${APP_USER}"
 info "SSL cert  : ${SSL_CERT}"
 info "SSL key   : ${SSL_KEY}"
 echo ""
 
-# ─── Check dependencies ───────────────────────────────────────────────────────
 info "Checking dependencies..."
-
-for cmd in nginx node npm openssl; do
+for cmd in nginx openssl rsync; do
     if ! command -v "$cmd" &>/dev/null; then
         die "'$cmd' is not installed. Please install it and re-run."
     fi
     ok "$cmd found ($(${cmd} --version 2>&1 | head -1))"
 done
 
-# ─── Verify Cloudflare Origin Certificate ─────────────────────────────────────
 info "Checking Cloudflare Origin Certificate..."
-
 if [[ ! -f "$SSL_CERT" ]]; then
-    echo ""
-    die "Certificate not found at: ${SSL_CERT}
-
-  Generate one in Cloudflare Dashboard:
-    SSL/TLS → Origin Server → Create Certificate
-
-  Then save the files:
-    Certificate → ${SSL_CERT}
-    Private key → ${SSL_KEY}
-
-  And set Cloudflare SSL/TLS mode to: Full (strict)"
+    die "Certificate not found at: ${SSL_CERT}"
 fi
 
 if [[ ! -f "$SSL_KEY" ]]; then
     die "Private key not found at: ${SSL_KEY}"
 fi
 
-# Verify the key is not world-readable
 chmod 600 "$SSL_KEY"
 
 info "Validating certificate and private key..."
-
 if ! openssl x509 -in "$SSL_CERT" -noout >/dev/null 2>&1; then
-    if openssl pkey -in "$SSL_CERT" -noout >/dev/null 2>&1; then
-        die "The certificate path points to a private key, not a certificate: ${SSL_CERT}
-
-  It looks like the certificate and key arguments may be swapped.
-
-  Correct usage without a repo URL:
-    sudo bash install.sh ${DOMAIN} ${SSL_CERT} ${SSL_KEY}
-
-  Or explicitly:
-    sudo bash install.sh ${DOMAIN} \"\" /path/to/cert.pem /path/to/key.key"
-    fi
-
     die "The certificate file is not a valid PEM X.509 certificate: ${SSL_CERT}"
 fi
 
 if ! openssl pkey -in "$SSL_KEY" -noout >/dev/null 2>&1; then
-    if openssl x509 -in "$SSL_KEY" -noout >/dev/null 2>&1; then
-        die "The private key path points to a certificate, not a private key: ${SSL_KEY}
-
-  It looks like the certificate and key arguments may be swapped.
-
-  Correct usage without a repo URL:
-    sudo bash install.sh ${DOMAIN} ${SSL_CERT} ${SSL_KEY}
-
-  Or explicitly:
-    sudo bash install.sh ${DOMAIN} \"\" /path/to/cert.pem /path/to/key.key"
-    fi
-
     die "The private key file is not a valid PEM private key: ${SSL_KEY}"
 fi
 
@@ -203,29 +100,13 @@ if ! diff \
     <(openssl x509 -in "$SSL_CERT" -pubkey -noout 2>/dev/null) \
     <(openssl pkey -in "$SSL_KEY" -pubout 2>/dev/null) \
     >/dev/null; then
-    echo ""
-    die "The SSL certificate and private key do not match.
-
-  Certificate: ${SSL_CERT}
-  Private key: ${SSL_KEY}
-
-  This usually means one of the following:
-    1. The certificate and key were copied from different Cloudflare Origin certs
-    2. The key file was overwritten or truncated
-    3. The wrong file paths were passed to install.sh
-
-  Re-download or regenerate a matching pair in Cloudflare:
-    SSL/TLS → Origin Server → Create Certificate
-
-  Then re-run:
-    sudo bash install.sh ${DOMAIN} \"${GIT_REPO}\" ${SSL_CERT} ${SSL_KEY}"
+    die "The SSL certificate and private key do not match."
 fi
 
 ok "Certificate: ${SSL_CERT}"
 ok "Private key: ${SSL_KEY}"
 ok "Certificate and private key match"
 
-# ─── System user ──────────────────────────────────────────────────────────────
 info "Creating system user '${APP_USER}'..."
 if id "$APP_USER" &>/dev/null; then
     ok "User '${APP_USER}' already exists"
@@ -234,58 +115,20 @@ else
         --system \
         --no-create-home \
         --shell /usr/sbin/nologin \
-        --comment "Cypress Site Static Serve" \
+        --comment "SignalDeck Static Site" \
         "$APP_USER"
     ok "User '${APP_USER}' created"
 fi
 
-# Add www-data to app user's group so Nginx can read the files
 usermod -aG "$APP_USER" www-data 2>/dev/null || true
 
-# ─── Application directory ────────────────────────────────────────────────────
-info "Setting up application directory..."
-mkdir -p "$APP_DIR"
-
-if [[ -n "$GIT_REPO" ]]; then
-    info "Cloning from ${GIT_REPO}..."
-    if [[ -d "${APP_DIR}/.git" ]]; then
-        warn "Directory already contains a git repo — pulling latest instead"
-        git -C "$APP_DIR" pull
-    else
-        git clone "$GIT_REPO" "$APP_DIR"
-    fi
-else
-    SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-    PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
-    info "No repo URL given — copying from ${PROJECT_DIR}..."
-    rsync -a \
-        --exclude='.git' \
-        --exclude='node_modules' \
-        --exclude='public/css/style.css' \
-        "${PROJECT_DIR}/" "${APP_DIR}/"
-fi
-
-ok "Files in place"
-
-# ─── Build ────────────────────────────────────────────────────────────────────
-info "Installing npm dependencies..."
-cd "$APP_DIR"
-npm install --prefer-offline 2>&1 | sed 's/^/    /'
-chmod +x "${APP_DIR}/node_modules/.bin/"*
-ok "npm install complete"
-
-info "Building Tailwind CSS..."
-npm run build 2>&1 | sed 's/^/    /'
-ok "CSS built"
-
-# ─── Permissions ──────────────────────────────────────────────────────────────
-info "Setting permissions..."
+info "Setting up static site directory..."
+mkdir -p "$PUBLIC_DIR"
 chown -R "${APP_USER}:www-data" "$APP_DIR"
 find "$APP_DIR" -type d -exec chmod 750 {} \;
-find "$APP_DIR" -type f -exec chmod 640 {} \;
-ok "Permissions set"
+find "$APP_DIR" -type f -exec chmod 640 {} \; 2>/dev/null || true
+ok "Directories ready"
 
-# ─── Nginx config ─────────────────────────────────────────────────────────────
 info "Writing Nginx configuration..."
 
 cat > "$NGINX_AVAILABLE" <<NGINX
@@ -295,8 +138,6 @@ cat > "$NGINX_AVAILABLE" <<NGINX
 ## SSL:      Cloudflare Origin Certificate
 ##
 
-# Redirect HTTP → HTTPS
-# Cloudflare will only send HTTPS traffic, but this catches anything direct.
 server {
     listen 80;
     listen [::]:80;
@@ -309,18 +150,16 @@ server {
     listen [::]:443 ssl http2;
     server_name ${DOMAIN};
 
-    # Cloudflare Origin Certificate
     ssl_certificate     ${SSL_CERT};
     ssl_certificate_key ${SSL_KEY};
 
-    # Strong TLS settings
     ssl_protocols       TLSv1.2 TLSv1.3;
     ssl_ciphers         ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305;
     ssl_prefer_server_ciphers off;
     ssl_session_cache   shared:SSL:10m;
     ssl_session_timeout 1d;
 
-    root  ${APP_DIR}/public;
+    root  ${PUBLIC_DIR};
     index index.html;
 
     access_log /var/log/nginx/cypress-site.access.log;
@@ -330,7 +169,6 @@ server {
         try_files \$uri \$uri/ /index.html;
     }
 
-    # Long-lived cache for content-hashed assets
     location ~* \.(css|js|woff|woff2|ttf|eot)\$ {
         expires 1y;
         add_header Cache-Control "public, immutable";
@@ -343,8 +181,8 @@ server {
         access_log off;
     }
 
-    add_header X-Frame-Options        "SAMEORIGIN"                   always;
-    add_header X-Content-Type-Options "nosniff"                      always;
+    add_header X-Frame-Options        "SAMEORIGIN" always;
+    add_header X-Content-Type-Options "nosniff" always;
     add_header Referrer-Policy        "strict-origin-when-cross-origin" always;
 
     gzip on;
@@ -356,11 +194,9 @@ NGINX
 
 ok "Nginx config written to ${NGINX_AVAILABLE}"
 
-# Enable site
 ln -sf "$NGINX_AVAILABLE" "$NGINX_ENABLED"
 ok "Site enabled"
 
-# Test config
 info "Testing Nginx configuration..."
 if nginx -t 2>&1; then
     ok "Nginx config valid"
@@ -368,22 +204,20 @@ else
     die "Nginx config test failed — check the output above"
 fi
 
-# Reload
 info "Reloading Nginx..."
 systemctl reload nginx
 ok "Nginx reloaded"
 
-# ─── Done ─────────────────────────────────────────────────────────────────────
 echo ""
 echo -e "${GREEN}╔══════════════════════════════════════════════════════╗${NC}"
-echo -e "${GREEN}║   Installation complete!                             ║${NC}"
+echo -e "${GREEN}║   Bootstrap complete!                                ║${NC}"
 echo -e "${GREEN}╚══════════════════════════════════════════════════════╝${NC}"
 echo ""
 echo -e "  ${GREEN}→${NC}  https://${DOMAIN}"
 echo ""
-echo -e "  Reminder: Cloudflare SSL/TLS mode must be set to ${CYAN}Full (strict)${NC}"
-echo -e "  in your Cloudflare dashboard for the Origin Certificate to work."
+echo -e "  Next step from your local machine:"
+echo -e "    npm run build"
+echo -e "    rsync -av --delete ./public/ user@server:${PUBLIC_DIR}/"
 echo ""
-echo -e "  To rebuild CSS after changes:"
-echo -e "    cd ${APP_DIR} && npm run build"
+echo -e "  Reminder: Cloudflare SSL/TLS mode must be set to ${CYAN}Full (strict)${NC}"
 echo ""

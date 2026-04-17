@@ -23,7 +23,6 @@
     <div class="max-w-6xl mx-auto px-6">
       <div class="h-16 flex items-center justify-between">
 
-        <!-- Logo -->
         <a href="/" class="flex items-center gap-2.5 group">
           <img src="/brand-symbol.svg" alt="SignalDeck" class="w-8 h-8" />
           <span class="font-semibold text-sm text-white/90 group-hover:text-white transition-colors tracking-tight">
@@ -31,8 +30,7 @@
           </span>
         </a>
 
-        <!-- Desktop Links -->
-        <div class="hidden md:flex items-center gap-7 text-sm text-muted">
+        <div class="hidden lg:flex items-center gap-7 text-sm text-muted">
           <a href="/#features" class="hover:text-white transition-colors duration-200">Features</a>
           <a href="/#how-it-works" class="hover:text-white transition-colors duration-200">How It Works</a>
           <a href="/#demo" class="hover:text-white transition-colors duration-200">Demo</a>
@@ -41,8 +39,7 @@
           <a href="//docs.signaldeck.tech" target="_blank" class="hover:text-white transition-colors duration-200">Docs</a>
         </div>
 
-        <!-- Desktop CTA -->
-        <div class="hidden md:flex items-center gap-3">
+        <div class="hidden lg:flex items-center gap-3">
           <a
             href="https://github.com/benwake1/signaldeck-ci-server"
             target="_blank"
@@ -55,9 +52,8 @@
           </a>
         </div>
 
-        <!-- Mobile Hamburger -->
         <button
-          class="md:hidden p-2 text-muted hover:text-white transition-colors"
+          class="lg:hidden p-2 text-muted hover:text-white transition-colors"
           @click="mobileOpen = !mobileOpen"
           aria-label="Toggle menu"
         >
@@ -67,8 +63,7 @@
 
       </div>
 
-      <!-- Mobile Menu -->
-      <div x-show="mobileOpen" x-transition class="md:hidden border-t border-dark-border py-4 flex flex-col gap-1" style="display:none;">
+      <div x-show="mobileOpen" x-transition class="lg:hidden border-t border-dark-border py-4 flex flex-col gap-1" style="display:none;">
         <a href="/#features" class="px-2 py-2 text-sm text-muted hover:text-white transition-colors" @click="mobileOpen = false">Features</a>
         <a href="/#how-it-works" class="px-2 py-2 text-sm text-muted hover:text-white transition-colors" @click="mobileOpen = false">How It Works</a>
         <a href="/#demo" class="px-2 py-2 text-sm text-muted hover:text-white transition-colors" @click="mobileOpen = false">Demo</a>
@@ -93,6 +88,13 @@
       </div>
     </div>
   </nav>
+
+
+
+
+
+
+
 
 
   <!-- ═══════════════════════════════════════════
@@ -235,7 +237,7 @@
     <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
 
       <div class="flex items-center gap-2.5">
-        <img src="/brand-symbol.svg" alt="SignalDeck" class="w-6 h-6" />
+        <img src="/brand-symbol.svg" alt="SignalDeck CI" class="w-6 h-6" />
         <span class="text-sm text-muted">SignalDeck CI &mdash; Built with love.</span>
       </div>
 
@@ -251,11 +253,18 @@
         </a>
         <a href="/privacy.html" class="hover:text-white transition-colors">Privacy Policy</a>
         <a href="/terms.html" class="hover:text-white transition-colors">Terms of Use</a>
-        <span>&copy; <span class="date"></span> Wake&amp;Co / SignalDeck / SignalDeckCI - All Rights Reserved.</span>
+        <span>&copy; <span class="date"></span> Wake&amp;Co / SignalDeck / SignalDeck CI - All Rights Reserved.</span>
       </div>
 
     </div>
   </footer>
+
+
+
+
+
+
+
   <script>document.querySelector('.date').appendChild(document.createTextNode(new Date().getFullYear()))</script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </body>

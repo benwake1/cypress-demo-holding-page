@@ -12,7 +12,6 @@
   <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body class="bg-dark text-white font-sans antialiased" x-data="{ mobileOpen: false }">
-
   <nav class="fixed top-0 left-0 right-0 z-50 border-b border-dark-border/60 bg-dark/75 backdrop-blur-md">
     <div class="max-w-6xl mx-auto px-6">
       <div class="h-16 flex items-center justify-between">
@@ -23,7 +22,7 @@
           </span>
         </a>
 
-        <div class="hidden md:flex items-center gap-7 text-sm text-muted">
+        <div class="hidden lg:flex items-center gap-7 text-sm text-muted">
           <a href="/#features" class="hover:text-white transition-colors duration-200">Features</a>
           <a href="/#how-it-works" class="hover:text-white transition-colors duration-200">How It Works</a>
           <a href="/#demo" class="hover:text-white transition-colors duration-200">Demo</a>
@@ -31,7 +30,7 @@
           <a href="//docs.signaldeck.tech" target="_blank" class="hover:text-white transition-colors duration-200">Docs</a>
         </div>
 
-        <div class="hidden md:flex items-center gap-3">
+        <div class="hidden lg:flex items-center gap-3">
           <a
             href="https://github.com/benwake1/signaldeck-ci-server"
             target="_blank"
@@ -45,7 +44,7 @@
         </div>
 
         <button
-          class="md:hidden p-2 text-muted hover:text-white transition-colors"
+          class="lg:hidden p-2 text-muted hover:text-white transition-colors"
           @click="mobileOpen = !mobileOpen"
           aria-label="Toggle menu"
         >
@@ -54,7 +53,7 @@
         </button>
       </div>
 
-      <div x-show="mobileOpen" x-transition class="md:hidden border-t border-dark-border py-4 flex flex-col gap-1" style="display:none;">
+      <div x-show="mobileOpen" x-transition class="lg:hidden border-t border-dark-border py-4 flex flex-col gap-1" style="display:none;">
         <a href="/#features" class="px-2 py-2 text-sm text-muted hover:text-white transition-colors" @click="mobileOpen = false">Features</a>
         <a href="/#how-it-works" class="px-2 py-2 text-sm text-muted hover:text-white transition-colors" @click="mobileOpen = false">How It Works</a>
         <a href="/#demo" class="px-2 py-2 text-sm text-muted hover:text-white transition-colors" @click="mobileOpen = false">Demo</a>
@@ -66,6 +65,13 @@
       </div>
     </div>
   </nav>
+
+
+
+
+
+
+
 
   <section class="relative pt-32 pb-16 md:pt-40 md:pb-20 overflow-hidden">
     <div class="absolute inset-0 bg-dot-grid bg-dot-grid [mask-image:radial-gradient(ellipse_80%_60%_at_50%_0%,black_40%,transparent_100%)] opacity-100"></div>
@@ -214,9 +220,9 @@
 
     </div>
   </section>
-
   <footer class="border-t border-dark-border py-10">
     <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+
       <div class="flex items-center gap-2.5">
         <img src="/brand-symbol.svg" alt="SignalDeck CI" class="w-6 h-6" />
         <span class="text-sm text-muted">SignalDeck CI &mdash; Built with love.</span>
@@ -236,8 +242,16 @@
         <a href="/terms.html" class="hover:text-white transition-colors text-cyber-green">Terms of Use</a>
         <span>&copy; <span class="date"></span> Wake&amp;Co / SignalDeck / SignalDeck CI - All Rights Reserved.</span>
       </div>
+
     </div>
   </footer>
+
+
+
+
+
+
+
 
   <script>document.querySelector('.date').appendChild(document.createTextNode(new Date().getFullYear()))</script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
